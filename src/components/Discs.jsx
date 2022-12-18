@@ -5,27 +5,28 @@ import { Button, Card, ListGroup } from 'react-bootstrap';
 import Context from '../context/Context';
 import { useNavigate } from 'react-router';
 
-function Products({ Prods }) {
+function Discs({ disc }) {
     const { setDetails } = useContext(Context);
+
 
     const history = useNavigate();
 
     const pageChangeToDetails = (item, _id) => {
         setDetails(item);
-        history(`/products/details/${_id}`);
+        history(`/store/details/${_id}`);
     };
 
     return (
-        <div className="Products d-flex flex-wrap justify-content-center container-fluid">
-            {Prods && Prods.map((item, i) => {
-                const { _id, produto, valor, url_image } = item;
+        <div className="disc d-flex flex-wrap justify-content-center container-fluid">
+            {disc && disc.map((item, i) => {
+                const { _id, title, artist, url_img } = item;
                 return (
                     <Card key={ i } className="m-3" style={{ width: '18rem' }}>
                         <Card.Body>
-                            <Card.Title>{ produto }</Card.Title>
-                            <Card.Img alt={ produto } className='cellImage' variant="top" src={url_image} />
+                            <Card.Title>{ title }</Card.Title>
+                            <Card.Img alt={ title } className='cellImage' variant="top" src={url_img} />
                             <ListGroup variant="flush">
-                                <ListGroup.Item>{`por R$${valor} anual`}</ListGroup.Item>
+                                <ListGroup.Item>{artist}</ListGroup.Item>
                             </ListGroup>
                             <Button onClick={ () => pageChangeToDetails(item, _id)} variant="primary">Ver detalhes</Button>
                         </Card.Body>
@@ -36,9 +37,9 @@ function Products({ Prods }) {
     );
 }
 
-Products.propTypes = {
-    Prods: PropTypes.shape().isRequired,
+Discs.propTypes = {
+    disc: PropTypes.shape().isRequired,
 };
   
 
-export default Products;
+export default Discs;

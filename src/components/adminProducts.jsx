@@ -6,13 +6,13 @@ import { Button, Form, Table } from 'react-bootstrap';
 import ModalAdminUpdate from './ModalAdminUpdate';
 import { IoMdAddCircle } from 'react-icons/io';
 import ModalAdminCreate from './ModalAdminCreate';
-import { deleteProducts } from '../services/BDsRequests';
+import { deleteDiscs } from '../services/BDsRequests';
 
 
-function ProductsAdmin({ Prods, setProds, refreshPage }) {
+function DiscsAdmin({ Discs, setDiscs, refreshPage }) {
 
     const [search, setSearch] = useState('');
-    const [data, _setData] = useState(Prods);
+    const [data, _setData] = useState(Discs);
     const [show, setShow] = useState(false);
     const [showAdd, setShowAdd] = useState(false);
     const [Item, setItem] = useState();
@@ -28,12 +28,12 @@ function ProductsAdmin({ Prods, setProds, refreshPage }) {
             const searchFilter = data
                 .filter((prod) => (prod.produto.toLowerCase()).includes(value));
     
-            setProds(searchFilter);
-        } else { setProds(data); }
+            setDiscs(searchFilter);
+        } else { setDiscs(data); }
     }, [search]);
 
-    const deleProduct = async (id) => {
-        const response = await deleteProducts(id);
+    const deleDisc = async (id) => {
+        const response = await deleteDiscs(id);
         if(response.status === 204) {
             refreshPage();
         }
@@ -41,7 +41,7 @@ function ProductsAdmin({ Prods, setProds, refreshPage }) {
 
 
     return (
-        <div className="Products d-flex flex-wrap justify-content-center container-fluid">
+        <div className="Discs d-flex flex-wrap justify-content-center container-fluid">
             <ModalAdminUpdate refreshPage={refreshPage} Item={ Item } show={ show } setShow={ setShow } />
             <ModalAdminCreate refreshPage={refreshPage} showAdd={ showAdd } setShowAdd={ setShowAdd } />
             <Form.Control
@@ -64,7 +64,7 @@ function ProductsAdmin({ Prods, setProds, refreshPage }) {
                     </tr>
                 </thead>
                 <tbody>
-                    {Prods && Prods.map((item, i) => {
+                    {Discs && Discs.map((item, i) => {
                         const { _id, produto, valor, url_image } = item;
                         const image = (<img 
                             src={ url_image }
@@ -88,7 +88,7 @@ function ProductsAdmin({ Prods, setProds, refreshPage }) {
                                     <Button
                                         type="button"
                                         variant='danger'
-                                        onClick={ () => deleProduct(_id) }
+                                        onClick={ () => deleDisc(_id) }
                                     > 
                                          Deletar
                                     </Button>
@@ -103,11 +103,11 @@ function ProductsAdmin({ Prods, setProds, refreshPage }) {
     );
 }
 
-ProductsAdmin.propTypes = {
-    Prods: PropTypes.shape().isRequired,
-    setProds: PropTypes.shape().isRequired,
+DiscsAdmin.propTypes = {
+    Discs: PropTypes.shape().isRequired,
+    setDiscs: PropTypes.shape().isRequired,
     refreshPage: PropTypes.shape().isRequired,
 };
   
 
-export default ProductsAdmin;
+export default DiscsAdmin;

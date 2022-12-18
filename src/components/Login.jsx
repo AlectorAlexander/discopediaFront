@@ -35,7 +35,7 @@ function Login() {
         const { status } = response;
 
         if (status === magicNumberSim) {
-            return history('/products');
+            return history('/store');
         }
 
         return setErrHomeMessage('Dados inválidos');

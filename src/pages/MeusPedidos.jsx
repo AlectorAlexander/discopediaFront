@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import PedidosCheckout from '../components/pedidos';
-import ModalFinish from '../hooks/modalFinishVenda';
+import ModalFinish from '../hooks/Modals';
 import { getSalesById } from '../services/BDsRequests';
 
 function MeusPedidos() {

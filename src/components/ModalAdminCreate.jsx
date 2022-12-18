@@ -2,17 +2,17 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Form, FormGroup, Modal } from 'react-bootstrap';
-import { CreateProduct } from '../services/BDsRequests';
+import { CreateDisc } from '../services/BDsRequests';
 
 function ModalAdminCreate({ refreshPage, showAdd, setShowAdd }) {
-    const [Produto, setProduto] = useState('');
+    const [Disco, setDisco] = useState('');
     const [UrlImage, setUrlImage] = useState('');
     const [Descricao, setDescricao] = useState('');
     const [Valor, setValor] = useState('');
     const [SaveButton, setSaveButton] = useState(true);
 
     useEffect(() => {
-        const compare1 = Produto.length > 0;
+        const compare1 = Disco.length > 0;
         const compare2 = Valor.length > 0;
         const compare3 = Descricao.length > 0;
         const compare4 = UrlImage.length > 0;
@@ -20,7 +20,7 @@ function ModalAdminCreate({ refreshPage, showAdd, setShowAdd }) {
         const theFinalTrue = [compare1, compare2, compare3, compare4].some((el) => el === true);
 
         setSaveButton(!theFinalTrue);
-    }, [Produto,
+    }, [Disco,
         UrlImage,
         Descricao,
         Valor,
@@ -31,14 +31,14 @@ function ModalAdminCreate({ refreshPage, showAdd, setShowAdd }) {
         const updated = new Date();
         const created = new Date();
         const upProduct = {
-            produto: Produto,
+            produto: Disco,
             valor: Number(Valor),
             descricao: Descricao,
             url_image: UrlImage,
             created,
             updated
         };
-        const response = await CreateProduct(upProduct);
+        const response = await CreateDisc(upProduct);
         console.log(response);
         if (response.status === 201) {
             setShowAdd(!showAdd);
@@ -50,20 +50,20 @@ function ModalAdminCreate({ refreshPage, showAdd, setShowAdd }) {
     return (
         <Modal show={showAdd} onHide={() => setShowAdd(false)}>
             <Modal.Header closeButton>
-                <img className="thumb-admin" src={UrlImage} alt={ Produto } />
+                <img className="thumb-admin" src={UrlImage} alt={ Disco } />
             </Modal.Header>
             <Modal.Body>
                 <FormGroup>
                     <Form.Label className='d-flex p-2 border-bottom'>
-                        Nome do Produto:
+                        Nome do Disco:
                         <Form.Control
                             type="text"
-                            value={ Produto }
-                            onChange={ ({target}) => setProduto(target.value) }
+                            value={ Disco }
+                            onChange={ ({target}) => setDisco(target.value) }
                         />
                     </Form.Label>
                     <Form.Label className='d-flex p-2 border-bottom'>
-                        Valor do Produto:
+                        Valor do Disco:
                         <Form.Control
                             type="number"
                             value={ Valor }
@@ -71,7 +71,7 @@ function ModalAdminCreate({ refreshPage, showAdd, setShowAdd }) {
                         />
                     </Form.Label>
                     <Form.Label className='d-flex p-2 border-bottom'>
-                        Descrição do Produto:
+                        Descrição do Disco:
                         <Form.Control
                             type="text"
                             value={ Descricao }
@@ -79,7 +79,7 @@ function ModalAdminCreate({ refreshPage, showAdd, setShowAdd }) {
                         />
                     </Form.Label>
                     <Form.Label className='d-flex p-2 border-bottom'>
-                        Thumb do Produto:
+                        Thumb do Disco:
                         <Form.Control
                             type="text"
                             value={ UrlImage }

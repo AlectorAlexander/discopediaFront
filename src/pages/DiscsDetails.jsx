@@ -4,17 +4,17 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Details from '../components/Details';
 
-function ProductDetails() {
+function DiscDetails() {
 
     useEffect(() => {
-        if (!localStorage.getItem('cart')) {
-            localStorage.setItem('cart', JSON.stringify([]));
+        if (!localStorage.getItem('discs')) {
+            localStorage.setItem('discs', JSON.stringify([]));
         }
     });
 
 
     return (
-        <div className="ProductDetails">
+        <div className="DiscDetails">
             <Header />
             <Details />
             <Footer />
@@ -22,4 +22,4 @@ function ProductDetails() {
     );
 }
 
-export default ProductDetails;
+export default DiscDetails;

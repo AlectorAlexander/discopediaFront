@@ -3,18 +3,18 @@ import React, { useEffect, useState } from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import ProductsAdmin from '../components/adminProducts';
-import { getProducts } from '../services/BDsRequests';
+import { getDiscs } from '../services/BDsRequests';
 
 function AdminProducts() {
-    const [Prods, setProds] = useState(null);
+    const [Discs, setDiscs] = useState(null);
 
     function refreshPage() {
         window.location.reload(false);
     }
 
     const request = async () => {
-        const response = await getProducts();
-        return setProds(response.data);
+        const response = await getDiscs();
+        return setDiscs(response.data);
     };
 
     useEffect(() => {
@@ -24,7 +24,7 @@ function AdminProducts() {
     return (
         <div className="AdminProducts">
             <Header />
-            {Prods && <ProductsAdmin refreshPage={refreshPage} setProds={ setProds } Prods={ Prods } />}
+            {Discs && <ProductsAdmin refreshPage={refreshPage} setDiscs={ setDiscs } Discs={ Discs } />}
             <Footer />
         </div>
     );

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const imageType = 'image/jpeg';
 
-const baseURL = "https://radar-fit-backend.herokuapp.com/"
+const baseURL = 'https://discopedia-back.onrender.com/';
 
 const instance = axios.create({
     baseURL,
@@ -27,7 +27,7 @@ export async function LoginFetch(email, senha) {
 
 export async function createUser( nome, email, senha ) {
     const response = await instance
-        .post('register', { nome, email, senha, role: 'Usuário' })
+        .post('register', { nome, email, senha, discos: [] })
         .catch((error) => {
             console.log(error);
             return error.response;
@@ -52,10 +52,10 @@ export async function validateUser() {
         });
 
 
-    if (response.data.role) {
+    if (response.data.discos) {
         const { data } = response;
-        const { role } = data;
-        return role;
+        const { discos } = data;
+        return discos;
     }
     return response;
 }
@@ -77,10 +77,10 @@ export async function UpdateDocumentUser( id, document ) {
     return response;
 }
 
-export async function UpdateProduct( id, product ) {
-    console.log(product);
+export async function UpdateDisc( id, disco ) {
+    console.log(disco);
     const response = await instance
-        .put(`produtos/${id}`, { ...product })
+        .put(`disks/${id}`, { ...disco })
         .catch((error) => {
             console.log(error);
             return error.response;
@@ -88,10 +88,10 @@ export async function UpdateProduct( id, product ) {
     return response;
 }
 
-export async function CreateProduct(product ) {
-    console.log(product);
+export async function CreateDisc(disco ) {
+    console.log(disco);
     const response = await instance
-        .post('produtos/', { ...product })
+        .post('disks/', { ...disco })
         .catch((error) => {
             console.log(error);
             return error.response;
@@ -100,10 +100,10 @@ export async function CreateProduct(product ) {
 }
  
 
-export async function getProducts() {
+export async function getDiscs() {
     const { token } = JSON.parse(localStorage.getItem('user'));
     const response = await instance
-        .get('produtos', { headers: { 'Content-Type': imageType, Authorization: token } })
+        .get('disks', { headers: { 'Content-Type': imageType, Authorization: token } })
         .catch((error) => {
             console.log(error);
             return error.response.error;
@@ -111,10 +111,10 @@ export async function getProducts() {
     return response;
 }
 
-export async function getProductsById(id) {
+export async function getDiscsById(id) {
     const { token } = JSON.parse(localStorage.getItem('user'));
     const response = await instance
-        .get(`produtos/${id}`, { headers: { 'Content-Type': imageType, Authorization: token } })
+        .get(`disks/${id}`, { headers: { 'Content-Type': imageType, Authorization: token } })
         .catch((error) => {
             console.log(error);
             return error.response.error;
@@ -122,10 +122,10 @@ export async function getProductsById(id) {
     return response;
 }
 
-export async function deleteProducts(id) {
+export async function deleteDiscs(id) {
     const { token } = JSON.parse(localStorage.getItem('user'));
     const response = await instance
-        .delete(`produtos/${id}`, { headers: { 'Content-Type': imageType, Authorization: token } })
+        .delete(`disks/${id}`, { headers: { 'Content-Type': imageType, Authorization: token } })
         .catch((error) => {
             console.log(error);
             return error.response.error;

@@ -39,7 +39,7 @@ export default function Register() {
 
         const { status } = response;
         if (status === magicNumberSim) {
-            return history('/products');
+            return history('/store');
         }
 
         if (status === conflict) {

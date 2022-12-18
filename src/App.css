@@ -31,8 +31,8 @@
 }
 
 .DetailImage {
-  max-width: 300px;
-  max-height: 400px;
+  max-width: 350px;
+  max-height: 350px;
 }
 
 @media (prefers-reduced-motion: no-preference) {

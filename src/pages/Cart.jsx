@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import ProductsCart from '../components/productsCart';
-import ModalFinish from '../hooks/modalFinishVenda';
+import ProductsCart from '../components/discsCart';
+import ModalFinish from '../hooks/Modals';
 
 function Cart() {
     const [carrinho, setCarrinho] = useState([]);

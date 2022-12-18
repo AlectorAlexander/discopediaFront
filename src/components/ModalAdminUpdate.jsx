@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Form, FormGroup, Modal } from 'react-bootstrap';
-import { UpdateProduct } from '../services/BDsRequests';
+import { UpdateDisc } from '../services/BDsRequests';
 
 function ModalAdminUpdate({ refreshPage, show, setShow, Item }) {
     const [Produto, setProduto] = useState('');
@@ -46,11 +46,11 @@ function ModalAdminUpdate({ refreshPage, show, setShow, Item }) {
         Valor,
         SaveButton]);
 
-    const updateProduct = async () => {
+    const updateDisc = async () => {
 
         const updated = new Date();
         const created = Item.created;
-        const upProduct = {
+        const upDisc = {
             produto: Produto,
             valor: Number(Valor),
             descricao: Descricao,
@@ -58,7 +58,7 @@ function ModalAdminUpdate({ refreshPage, show, setShow, Item }) {
             created,
             updated
         };
-        const response = await UpdateProduct(id, upProduct);
+        const response = await UpdateDisc(id, upDisc);
         if (response.status === 200) {
             setShow(!show);
             refreshPage();
@@ -116,7 +116,7 @@ function ModalAdminUpdate({ refreshPage, show, setShow, Item }) {
                 <Button
                     disabled={SaveButton}
                     variant="primary"
-                    onClick={updateProduct}>
+                    onClick={updateDisc}>
                         Salvar
                 </Button>
             </Modal.Footer>
