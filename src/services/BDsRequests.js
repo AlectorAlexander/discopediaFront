@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const imageType = 'image/jpeg';
 
-const baseURL = 'https://discopedia-back.onrender.com/';
+const baseURL = 'http://localhost:3001/';
 
 const instance = axios.create({
     baseURL,
