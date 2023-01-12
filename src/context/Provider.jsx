@@ -8,6 +8,7 @@ function Provider({ children }) {
     const [Loading, setLoading] = useState(false);
     const [Data, setData] = useState();
     const [Show, setShow] = useState(false);
+    const [ImagesHeader, setImagesHeader] = useState([]);
     const [Details, setDetails] = useState(null);
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -18,6 +19,8 @@ function Provider({ children }) {
         errHomeMessage,
         Details, 
         setDetails,
+        ImagesHeader, 
+        setImagesHeader,
         Show,
         setShow,
         setErrHomeMessage,

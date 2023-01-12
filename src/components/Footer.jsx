@@ -1,11 +1,13 @@
 import React from 'react';
 import {
-    CDBFooter, CDBBtn, CDBIcon, CDBBox,
+    CDBBtn, CDBBox, CDBModalFooter,
 } from 'cdbreact';
+
+import { BsFacebook, BsTwitter, BsInstagram } from 'react-icons/bs';
 
 export default function Footer() {
     return (
-        <CDBFooter className="shadow footer mt-5 py-3">
+        <CDBModalFooter className="shadow footer mt-5 py-3">
             <CDBBox
                 display="flex"
                 justifyContent="between"
@@ -15,7 +17,7 @@ export default function Footer() {
             >
                 <CDBBox display="flex" alignItems="center">
                     <a href="/" className="d-flex align-items-center p-0 text-dark">
-                        <span className="ml-3 h5 font-weight-bold">RadarFit Challenge</span>
+                        <span className="ml-3 h5 font-weight-bold">Discopedia</span>
                     </a>
 
                 </CDBBox>
@@ -24,16 +26,16 @@ export default function Footer() {
                 </CDBBox>
                 <CDBBox display="flex">
                     <CDBBtn flat color="dark" className="p-2">
-                        <CDBIcon fab icon="facebook-f" />
+                        <BsFacebook />
                     </CDBBtn>
                     <CDBBtn flat color="dark" className="mx-3 p-2">
-                        <CDBIcon fab icon="twitter" />
+                        <BsTwitter />
                     </CDBBtn>
                     <CDBBtn flat color="dark" className="p-2">
-                        <CDBIcon fab icon="instagram" />
+                        <BsInstagram />
                     </CDBBtn>
                 </CDBBox>
             </CDBBox>
-        </CDBFooter>
+        </CDBModalFooter>
     );
 }

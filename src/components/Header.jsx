@@ -4,6 +4,7 @@ import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 import { useNavigate } from 'react-router';
 import Context from '../context/Context';
 import { validateUser } from '../services/BDsRequests';
+import CarouselComponent from './carrossel';
 
 function Header() {
     const [admin, setAdmin] = useState(false);
@@ -42,6 +43,7 @@ function Header() {
 
     return (
         <div className="Header">
+            <CarouselComponent /> 
             <Navbar bg="dark" variant="dark">
                 <Container>
                     <Navbar.Brand href="/">Home</Navbar.Brand>
