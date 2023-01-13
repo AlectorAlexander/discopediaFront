@@ -9,9 +9,8 @@ function CarouselComponent() {
     useEffect(() => {
         const intervalId = setInterval(() => {
             setCurrentIndex((currentIndex + 1) % ImagesHeader.length);
-        }, 3000);
-
-        // clear the interval on unmount
+        }, 6000);
+        /*          */
         return () => clearInterval(intervalId);
     }, [currentIndex, ImagesHeader]);
 
@@ -19,7 +18,7 @@ function CarouselComponent() {
         <Carousel bg="dark" activeIndex={currentIndex} onSelect={setCurrentIndex}>
             {ImagesHeader.map((image, index) => (
                 <Carousel.Item key={index}>
-                    <img src={image} alt="capa de disco" />
+                    <img className='DetailImage' src={image} alt="capa de disco" />
                 </Carousel.Item>
             ))}
         </Carousel>

@@ -6,6 +6,7 @@ import Context from '../context/Context';
 import { validateUser } from '../services/BDsRequests';
 import CarouselComponent from './carrossel';
 
+
 function Header() {
     const [admin, setAdmin] = useState(false);
     const history = useNavigate();
