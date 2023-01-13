@@ -5,6 +5,8 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import Provider from './context/Provider';
 import './index.css';
 import App from './App';
+import './styles/Carousel.sass';
+import './styles/styles.css';
 
 
 

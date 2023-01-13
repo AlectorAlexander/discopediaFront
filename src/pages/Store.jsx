@@ -13,9 +13,10 @@ function Store() {
     const request = async () => {
         const response = await getDiscs();
         const { data } = response;
-        data.map(({ url_img }) => {
+        data.map( async ({ url_img }) => {
             setImagesHeader((prevImages) => prevImages.concat(url_img));
-        } );
+        });
+          
         setImagesHeader((prevImages) => prevImages.sort(() => Math.random() - 0.5));
 
         return setDisc(data);
