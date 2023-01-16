@@ -2,8 +2,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 import { useNavigate } from 'react-router';
-import Context from '../context/Context';
-import { validateUser } from '../services/BDsRequests';
+import Context from '../../context/Context';
+import { validateUser } from '../../services/BDsRequests';
 import CarouselComponent from './carrossel';
 
 

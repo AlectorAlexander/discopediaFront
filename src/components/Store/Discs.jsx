@@ -2,67 +2,67 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Card, ListGroup} from 'react-bootstrap';
-import Context from '../context/Context';
+import Context from '../../context/Context';
 import { useNavigate } from 'react-router';
 import PaginationLove from './pagination';
 
 function Discs({ disc }) {
+    
     const { setDetails } = useContext(Context);
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
-    let callsFunctionControll = 0;
+    const [callsFunctionControll, setControll] = useState(0);
+    const [discsSize, setDiscsSize] = useState(0);
 
-    // AQUI HÁ DRAGÕES
-    // lógica criada pra criação da páginação. O objetivo é que apareçam apenas 9 discos por página
-    const paginationParty = () => {
-        for (let discsArraySize = 9; discsArraySize < disc.length; discsArraySize += 9) {
-            const nineDiscs = [];
-            const leftOver = [];
-
-            // se no próximo ciclo de repetição, não houverem 9 discos disponíveis, ele vai pegar apenas os discos q restam
-            const bugControll = discsArraySize + 9;
-            if (bugControll > disc.length ) {
-                for (let index = (discsArraySize - 1); index < disc.length; index++) {
-                    leftOver.push(disc[index]);
-                    if ((index + 1) === disc.length) {
-                        setData((prev) => {
-                            return  [...prev, leftOver];
-                        });
-                    }
-                }
+    let sizeOfData = 0;
+    const paginationLessThenNineCards = () => {
+        const leftOver = disc.slice((sizeOfData -1), disc.length - 1);
+        sizeOfData += leftOver.length;
+        setData((prev) => {
             
-            } else {
-                for (let index = (discsArraySize - 9); index < discsArraySize; index++) {
-                    nineDiscs.push(disc[index]);
-                    if ((index + 1) === discsArraySize) {
-                        if (discsArraySize > 9) {
-                            setData((prev) => {
-                                return  [...prev, nineDiscs];
-                            });
-                            break;
-                        } else {
-                            setData([nineDiscs]);
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-        callsFunctionControll += 1;
+            return  [...prev, leftOver];
+        }, setDiscsSize(disc.length));
     };
+
+    const paginationParty = () => {
+        setControll((prev) => prev += 1);
+        const discsLeftOver = disc.length % 9;
+        const justNineDiscs = (disc.length - discsLeftOver);
+        for (let i = 0; i < justNineDiscs ; i += 9) {
+            if (sizeOfData >= justNineDiscs) {
+                break;
+            }
+            const nineDiscs = [];
+            for (let index = i; index < i + 9; index++) {
+                const element = disc[index];
+                nineDiscs.push(element);
+                sizeOfData += 1;
+            }
+            setData((prev) => {
+                return  [...prev, nineDiscs];
+            });
+        }
+        sizeOfData < disc.length && paginationLessThenNineCards();
+    };
+
+
+    useEffect(() => {
+        console.log(disc);
+        console.log(discsSize);
+        if (callsFunctionControll === 0 && disc.length) {
+            paginationParty();
+        } 
+        if (discsSize > disc.length) {
+            sizeOfData = 0;
+            paginationParty();
+        }
+    }, [disc]
+    );
 
     const onChangePage = (page) => {
         window.scroll(0, 0);
         setPage(page);
     };
-
-
-    useEffect(() => {
-        if(callsFunctionControll === 0) {
-            paginationParty();
-        }
-    }, []
-    );
 
     const history = useNavigate();
 

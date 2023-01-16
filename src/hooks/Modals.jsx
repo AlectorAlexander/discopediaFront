@@ -25,7 +25,6 @@ function ModalFinish({carrinho, setCarrinho}) {
         const { id } = JSON.parse(localStorage.getItem('user'));
         Promise.all(carrinho.map( async (item) => {
             const response = await createSales(id, item.id);
-            console.log(response);
             return response.data;
         }));
         localStorage.setItem('cart', JSON.stringify([]));

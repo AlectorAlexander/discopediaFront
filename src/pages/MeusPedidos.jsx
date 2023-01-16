@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-filename-extension */
 import React, { useEffect, useState } from 'react';
-import Footer from '../components/Footer';
-import Header from '../components/Header';
-import PedidosCheckout from '../components/pedidos';
+import Footer from '../components/Header&Footer&Stuffs/Footer';
+import Header from '../components/Header&Footer&Stuffs/Header';
+import PedidosCheckout from '../components/Details/pedidos';
 import ModalFinish from '../hooks/Modals';
 import { getSalesById } from '../services/BDsRequests';
 

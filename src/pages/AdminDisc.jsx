@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-filename-extension */
 import React, { useEffect, useState } from 'react';
-import Footer from '../components/Footer';
-import Header from '../components/Header';
+import Footer from '../components/Header&Footer&Stuffs/Footer';
+import Header from '../components/Header&Footer&Stuffs/Header';
 import ProductsAdmin from '../components/adminProducts';
 import { getDiscs } from '../services/BDsRequests';
 

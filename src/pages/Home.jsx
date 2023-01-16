@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import '../App.css';
 import Context from '../context/Context';
-import Login from '../components/Login';
-import Register from '../components/Register';
+import Login from '../components/Login&Register/Login';
+import Register from '../components/Login&Register/Register';
 import { useNavigate } from 'react-router';
 
 function Home() {

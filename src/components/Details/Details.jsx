@@ -3,8 +3,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Button, Card, ListGroup, Modal, Tab, Tabs } from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
 import PropTypes from 'prop-types';
-import Context from '../context/Context';
-import { getDiscsById } from '../services/BDsRequests';
+import Context from '../../context/Context';
+import { getDiscsById } from '../../services/BDsRequests';
 import { useNavigate, useParams } from 'react-router';
 
 function Details() {
@@ -38,7 +38,6 @@ function Details() {
     };
 
     const request = async () => {
-        console.log(id);
         const response = await getDiscsById(id);
         return setDetails(response.data);
     };
@@ -82,7 +81,6 @@ function Details() {
     };
 
     useEffect(() => {
-        console.log(Details);
         if (!Details) {
             request();
         }

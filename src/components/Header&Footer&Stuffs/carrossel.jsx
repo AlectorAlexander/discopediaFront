@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Carousel } from 'react-bootstrap';
-import Context from '../context/Context';
+import Context from '../../context/Context';
 
 function CarouselComponent() {
     const { ImagesHeader } = useContext(Context);
@@ -12,7 +12,6 @@ function CarouselComponent() {
         const intervalId = setInterval(() => {
             setCurrentIndex((currentIndex + 1) % ImagesHeader.length);
         }, 6000);
-        console.log(ImagesHeader[currentIndex]);
         return () => clearInterval(intervalId);
     }, [currentIndex, ImagesHeader]);
 

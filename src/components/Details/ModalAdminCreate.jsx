@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Form, FormGroup, Modal } from 'react-bootstrap';
-import { CreateDisc } from '../services/BDsRequests';
+import { CreateDisc } from '../../services/BDsRequests';
 
 function ModalAdminCreate({ refreshPage, showAdd, setShowAdd }) {
     const [Disco, setDisco] = useState('');
@@ -39,7 +39,6 @@ function ModalAdminCreate({ refreshPage, showAdd, setShowAdd }) {
             updated
         };
         const response = await CreateDisc(upProduct);
-        console.log(response);
         if (response.status === 201) {
             setShowAdd(!showAdd);
             refreshPage();

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Form, FormGroup, Modal } from 'react-bootstrap';
-import { UpdateDisc } from '../services/BDsRequests';
+import { UpdateDisc } from '../../services/BDsRequests';
 
 function ModalAdminUpdate({ refreshPage, show, setShow, Item }) {
     const [Produto, setProduto] = useState('');

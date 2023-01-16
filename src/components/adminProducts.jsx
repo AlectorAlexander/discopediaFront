@@ -3,9 +3,9 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Form, Table } from 'react-bootstrap';
-import ModalAdminUpdate from './ModalAdminUpdate';
+import ModalAdminUpdate from './Details/ModalAdminUpdate';
 import { IoMdAddCircle } from 'react-icons/io';
-import ModalAdminCreate from './ModalAdminCreate';
+import ModalAdminCreate from './Details/ModalAdminCreate';
 import { deleteDiscs } from '../services/BDsRequests';
 
 

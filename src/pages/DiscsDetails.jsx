@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-filename-extension */
 import React, { useEffect } from 'react';
-import Footer from '../components/Footer';
-import Header from '../components/Header';
-import Details from '../components/Details';
+import Footer from '../components/Header&Footer&Stuffs/Footer';
+import Header from '../components/Header&Footer&Stuffs/Header';
+import Details from '../components/Details/Details';
 
 function DiscDetails() {
 

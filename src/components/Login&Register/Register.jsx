@@ -1,9 +1,9 @@
 import React, { useContext} from 'react';
 import { Form, Button, FormGroup } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import Context from '../context/Context';
-import { createUser } from '../services/BDsRequests';
-import validate from '../services/validates';
+import Context from '../../context/Context';
+import { createUser } from '../../services/BDsRequests';
+import validate from '../../services/validates';
 
 export default function Register() {
     const history = useNavigate();

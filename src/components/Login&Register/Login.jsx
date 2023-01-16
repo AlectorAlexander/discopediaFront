@@ -1,9 +1,9 @@
 import React, { useContext} from 'react';
-import validate from '../services/validates';
+import validate from '../../services/validates';
 import { useNavigate } from 'react-router-dom';
-import { LoginFetch } from '../services/BDsRequests';
+import { LoginFetch } from '../../services/BDsRequests';
 import { Form, Button, FormGroup } from 'react-bootstrap';
-import Context from '../context/Context';
+import Context from '../../context/Context';
 
 function Login() {
     const { 

@@ -2,7 +2,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Table } from 'react-bootstrap';
-import Context from '../context/Context';
+import Context from '../../context/Context';
 
 function ProductsCart({ carrinho, removeItem, Total }) {
     const totalPorAno = `R$${(Total).replace('.', ',')} Por Ano`;
