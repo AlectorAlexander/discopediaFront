@@ -4,13 +4,32 @@ import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 import { useNavigate } from 'react-router';
 import Context from '../../context/Context';
 import { validateUser } from '../../services/BDsRequests';
+import { getDiscs } from '../../services/BDsRequests';
 import CarouselComponent from './carrossel';
 
 
 function Header() {
     const [admin, setAdmin] = useState(false);
     const history = useNavigate();
-    const { setPage } = useContext(Context);
+    const { setPage, setImagesHeader, setDisc, disc } = useContext(Context);
+
+    const request = async () => {
+        console.log('chamou');
+        const response = await getDiscs();
+        const { data } = response;
+        data.map( async ({ url_img }) => {
+            setImagesHeader((prevImages) => prevImages.concat(url_img));
+        });
+          
+        setImagesHeader((prevImages) => prevImages.sort(() => Math.random() - 0.5));
+        return setDisc(data);
+    };
+
+    useEffect(() => {
+        if (!disc) {
+            request();
+        }
+    }, [disc]);
 
     const Logout = () => {
         setPage('login');
@@ -47,7 +66,7 @@ function Header() {
             <CarouselComponent /> 
             <Navbar bg="dark" variant="dark">
                 <Container>
-                    <Navbar.Brand href="/">Home</Navbar.Brand>
+                    <Navbar.Brand onClick={() => history('/store')}>Home</Navbar.Brand>
                     {renderTheRightHeader}
                     <Button  onClick={ Logout }>Logout</Button>
                 </Container>

@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-filename-extension */
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Card, ListGroup} from 'react-bootstrap';
 import Context from '../../context/Context';
@@ -8,10 +8,15 @@ import PaginationLove from './pagination';
 import usePaginationData from '../../hooks/usePagination';
 
 function Discs() {
-    const { setDetails, data } = useContext(Context);
+    const { setDetails, data, disc } = useContext(Context);
     const { page, onChangePage } = usePaginationData();
 
     const history = useNavigate();
+
+    useEffect(() => {
+        console.log(data);
+        console.log(disc);
+    });
 
     const pageChangeToDetails = (item, _id) => {
         setDetails(item);
