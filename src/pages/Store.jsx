@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-filename-extension */
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Footer from '../components/Header&Footer&Stuffs/Footer';
 import Header from '../components/Header&Footer&Stuffs/Header';
 import Discs from '../components/Store/Discs';
@@ -8,8 +8,7 @@ import Context from '../context/Context';
 import SearchHeader from '../components/Header&Footer&Stuffs/SearchHeader';
 
 function Store() {
-    const { setImagesHeader } = useContext(Context);
-    const [disc, setDisc] = useState(null);
+    const { setImagesHeader, disc, setDisc } = useContext(Context);
 
     const request = async () => {
         const response = await getDiscs();

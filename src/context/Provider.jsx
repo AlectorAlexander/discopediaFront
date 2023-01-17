@@ -6,11 +6,12 @@ import Context from './Context';
 
 function Provider({ children }) {
     const [Loading, setLoading] = useState(false);
-    const [Data, setData] = useState();
+    const [disc, setDisc] = useState(null);
     const [Show, setShow] = useState(false);
     const [ImagesHeader, setImagesHeader] = useState([]);
     const [Details, setDetails] = useState(null);
     const [name, setName] = useState('');
+    const [data, setData] = useState([]);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [page, setPage] = useState('login');
@@ -23,6 +24,10 @@ function Provider({ children }) {
         setImagesHeader,
         Show,
         setShow,
+        data,
+        setData,
+        disc,
+        setDisc,
         setErrHomeMessage,
         name,
         setName,
@@ -32,8 +37,6 @@ function Provider({ children }) {
         setPassword,
         page,
         setPage,
-        Data,
-        setData,
         Loading,
         setLoading,
     };

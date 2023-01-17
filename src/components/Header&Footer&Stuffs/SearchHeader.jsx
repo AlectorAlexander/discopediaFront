@@ -1,35 +1,37 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Form, FormControl, Col, Row } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import Context from '../../context/Context';
 
-function SearchHeader({discs, setDiscs}) {
+function SearchHeader() {
+    const { disc, setDisc } = useContext(Context);
     const [originalDiscs, setOriginalDisks] = useState([]);
     const [searchParam, setSearchParam] = useState('title');
     const [searchBarr, setSearchBarr] = useState('');
 
     const findDiscBy = (() => {
         if (searchBarr.length === 0) {
-            setDiscs(originalDiscs);
+            setDisc(originalDiscs);
             return;
         }
         if (searchParam === 'title' || searchParam === 'artist') {
-            const similar = discs.filter(disc => disc[searchParam].toLowerCase().includes(searchBarr.toLowerCase()));
-            setDiscs(similar);
+            const similar = disc.filter(disc => disc[searchParam].toLowerCase().includes(searchBarr.toLowerCase()));
+            setDisc(similar);
         } else if (searchParam === 'Caracteristica' || searchParam === 'Formato' || searchParam === 'Lancamento' || searchParam === 'Produtor' || searchParam === 'Gravadora') {
-            const similar = discs.filter(disc => disc['details'][searchParam].toLowerCase().includes(searchBarr.toLowerCase()));
-            setDiscs(similar);
+            const similar = disc.filter(disc => disc['details'][searchParam].toLowerCase().includes(searchBarr.toLowerCase()));
+            setDisc(similar);
         }
         else if (searchParam === 'musics') {
-            const similar = discs.filter(disc => disc['musics'][searchParam].toLowerCase().includes(searchBarr.toLowerCase()));
-            setDiscs(similar);
+            const similar = disc.filter(disc => disc['musics'][searchParam].toLowerCase().includes(searchBarr.toLowerCase()));
+            setDisc(similar);
         }
     });
 
     useEffect(() => {
         if (!originalDiscs.length) {
-            setOriginalDisks(discs);
+            setOriginalDisks(disc);
         } 
-        if (discs) {
+        if (disc) {
             findDiscBy();
         }
     }, [searchBarr]);
@@ -65,8 +67,8 @@ function SearchHeader({discs, setDiscs}) {
 }
 
 SearchHeader.propTypes = {
-    discs: PropTypes.arrayOf(PropTypes.object).isRequired,
-    setDiscs: PropTypes.func.isRequired
+    disc: PropTypes.arrayOf(PropTypes.object).isRequired,
+    setDisc: PropTypes.func.isRequired
 };
 
 export default SearchHeader;
