@@ -14,7 +14,7 @@ function DiscDetails() {
 
 
     return (
-        <div className="DiscDetails">
+        <div className="psychodelic-background">
             <Header />
             <Details />
             <Footer />

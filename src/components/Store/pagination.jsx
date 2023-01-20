@@ -1,9 +1,17 @@
 /* eslint-disable no-unused-vars */
 import { Pagination } from 'react-bootstrap';
-import React from 'react';
-import { propTypes } from 'react-bootstrap/esm/Image';
+import React, { useContext } from 'react';
+import Context from '../../context/Context';
+import usePaginationData from '../../hooks/usePagination';
 
-function PaginationLove ({total, current, onChangePage}) {
+function PaginationLove () {
+
+    const { pageStore, data } = useContext(Context);
+    const { onChangePage } = usePaginationData();
+
+
+    const total = data.length; 
+    const current = pageStore;
 
     const firstAndPrev = () => {
         let items = [];
@@ -36,11 +44,5 @@ function PaginationLove ({total, current, onChangePage}) {
     );
 }
 
-PaginationLove.propTypes = {
-    total: propTypes.number,
-    current: propTypes.number,
-    page: propTypes.number,
-    onChangePage: propTypes.func,
-};
 
 export default PaginationLove;

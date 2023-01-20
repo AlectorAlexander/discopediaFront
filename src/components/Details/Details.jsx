@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import Context from '../../context/Context';
 import { getDiscsById } from '../../services/BDsRequests';
 import { useNavigate, useParams } from 'react-router';
+import '../../styles/styles.css';
 
 function Details() {
     const { Details, setDetails } = useContext(Context);
@@ -90,14 +91,14 @@ function Details() {
     
     function render() {
         const { title, artist, url_img, musics, details } = Details;
-        const { Carcteristica, Formatos, Gravadora, Lancamento, Observacao, Produtor } = details;
+        const { Caracteristica, Formatos, Gravadora, Lancamento, Observacao, Produtor } = details;
         return(
 
             <div  className="Details d-flex flex-wrap justify-content-around container-fluid">
                 {ModalReadyHave()}
                 {ModalDontHave()}
 
-                <div className='d-flex flex-column'>
+                <div className='d-flex flex-column table-i'>
 
                     <Tabs
                         defaultActiveKey="Capa"
@@ -105,14 +106,14 @@ function Details() {
                         className='p-1 mt-4'
                     >
 
-                        <Tab title="Capa" eventKey="Capa" className="p-2" >
+                        <Tab title="Capa" eventKey="Capa" className="p-2 " >
                             <Image className='DetailImage rounded' src={ url_img } />
                         </Tab>
 
                         <Tab title="Musicas" eventKey="Musicas" className="p-2" >
                             {musics.map((ele) => {
-                                return (<ListGroup key={ele} variant="flush">
-                                    <ListGroup.Item >{ele}</ListGroup.Item>
+                                return (<ListGroup key={ele} className="" variant="flush">
+                                    <ListGroup.Item>{ele}</ListGroup.Item>
                                 </ListGroup>);
                             })}
                         </Tab>
@@ -124,19 +125,19 @@ function Details() {
                 </div>
                 <Card className="m-3" style={{ width: '18rem' }}>
                     <Card.Body>
-                        <Card.Title>{ title }</Card.Title>
+                        <Card.Title class> <p className="titleDetails">{ title }</p></Card.Title>
                         <ListGroup variant="flush">
-                            <ListGroup.Item> <h3>{artist}</h3></ListGroup.Item>
-                            <ListGroup.Item>{`Carcteristica: ${Carcteristica || ' " . . . " '}`}</ListGroup.Item>
-                            <ListGroup.Item>{`Formatos: ${Formatos || ' " . . . " '}`}</ListGroup.Item>
-                            <ListGroup.Item>{`Gravadora: ${Gravadora || ' " . . . " '}`}</ListGroup.Item>
-                            <ListGroup.Item>{`Lancamento: ${Lancamento || ' " . . . " '}`}</ListGroup.Item>
-                            <ListGroup.Item>{`Observacao: ${Observacao || ' " . . . " '}`}</ListGroup.Item>
-                            <ListGroup.Item>{`Produtor: ${Produtor || ' " . . . " '}`}</ListGroup.Item>
+                            <ListGroup.Item className="list1">{artist}</ListGroup.Item>
+                            <ListGroup.Item className="list2">{`Caracteristica: ${Caracteristica || '...'}`}</ListGroup.Item >
+                            <ListGroup.Item className="list3">{`Formatos: ${Formatos || ' " . . . " '}`}</ListGroup.Item>
+                            <ListGroup.Item className="list4">{`Gravadora: ${Gravadora || ' " . . . " '}`}</ListGroup.Item>
+                            <ListGroup.Item className="list5">{`Lancamento: ${Lancamento || ' " . . . " '}`}</ListGroup.Item>
+                            <ListGroup.Item className="list6">{`Observacao: ${Observacao || ' " . . . " '}`}</ListGroup.Item>
+                            <ListGroup.Item className="list7">{`Produtor: ${Produtor || ' " . . . " '}`}</ListGroup.Item>
                         </ListGroup>
                         <Button
                             onClick={addItem}
-                            variant="primary">Adicionar na estante</Button>
+                            variant="danger">Adicionar na estante</Button>
                     </Card.Body>
                 </Card>
             </div>);

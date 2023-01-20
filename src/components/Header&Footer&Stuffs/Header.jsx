@@ -11,17 +11,27 @@ import CarouselComponent from './carrossel';
 function Header() {
     const [admin, setAdmin] = useState(false);
     const history = useNavigate();
-    const { setPage, setImagesHeader, setDisc, disc } = useContext(Context);
+    const { setPage, setImagesHeader, setDisc, disc, setLabel } = useContext(Context);
 
     const request = async () => {
-        console.log('chamou');
         const response = await getDiscs();
         const { data } = response;
-        data.map( async ({ url_img }) => {
+        data.map( async ({ url_img, details }) => {
+            const { Gravadora } = details;
+            setLabel((prevLabel) => prevLabel.concat(Gravadora));
             setImagesHeader((prevImages) => prevImages.concat(url_img));
         });
-          
         setImagesHeader((prevImages) => prevImages.sort(() => Math.random() - 0.5));
+        
+        setLabel((prevLabel) => {
+            for (let i = 0; i < prevLabel.length; i++) {
+                let organizedLabels = prevLabel[i].split('/');
+                prevLabel.splice(i, 1, ...organizedLabels);
+            }
+            
+            return prevLabel.filter((val, index) => prevLabel.indexOf(val) === index)
+                .filter((el) => el !== '').sort();
+        });
         return setDisc(data);
     };
 
@@ -39,8 +49,8 @@ function Header() {
 
     const renderTheRightHeader = !admin ? (
         <Nav className="me-auto">
-            <Nav.Link href="/cart">Carrinho</Nav.Link>
-            <Nav.Link href="/pedidos">Meus Pedidos</Nav.Link>
+            <Nav.Link style={{  }} href="/cart">Carrinho</Nav.Link>
+            <Nav.Link style={{  }} href="/pedidos">Meus Pedidos</Nav.Link>
         </Nav>
     ) : (
         <Nav className="me-auto">
@@ -64,11 +74,15 @@ function Header() {
     return (
         <div className="Header">
             <CarouselComponent /> 
-            <Navbar bg="dark" variant="dark">
+            <Navbar
+                className=" brazilian_colors"
+                variant="dark"
+                style={{ height: '6vw' }}
+            >
                 <Container>
-                    <Navbar.Brand onClick={() => history('/store')}>Home</Navbar.Brand>
+                    <Navbar.Brand style={{ cursor: 'pointer' }} onClick={() => history('/store')}>Home</Navbar.Brand>
                     {renderTheRightHeader}
-                    <Button  onClick={ Logout }>Logout</Button>
+                    <Button className='brazilian_colors' onClick={ Logout }>Logout</Button>
                 </Container>
             </Navbar>
         </div>

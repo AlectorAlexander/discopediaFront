@@ -2,10 +2,9 @@ import { useState, useEffect, useCallback, useContext } from 'react';
 import Context from '../context/Context';
 
 export default function usePaginationData() {
-    const { disc, setData } = useContext(Context);
+    const { disc, setData, setPageStore } = useContext(Context);
     const [discsSize, setDiscsSize] = useState(0);
     /* discsSize é um state que armazena o tamanho total da lista de discos. Ele é usado para comparar se a lista de discos foi alterada (quando o usuário usa o campo de pesquisa, por exemplo) e, caso tenha sido, executar as operações de paginação novamente. */
-    const [page, setPage] = useState(1);
     
     let sizeOfData = 0;
 
@@ -51,9 +50,9 @@ export default function usePaginationData() {
 
 
     const onChangePage = useCallback((newPage) => {
-        window.scroll(0, 0);
-        setPage(newPage);
+        window.scroll(0, 300);
+        setPageStore(newPage);
     }, []);
             
-    return { page, onChangePage };
+    return { onChangePage };
 }            

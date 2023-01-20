@@ -8,18 +8,24 @@ function Provider({ children }) {
     const [Loading, setLoading] = useState(false);
     const [disc, setDisc] = useState(null);
     const [Show, setShow] = useState(false);
+    const [Label, setLabel] = useState([]);
     const [ImagesHeader, setImagesHeader] = useState([]);
     const [Details, setDetails] = useState(null);
     const [name, setName] = useState('');
+    const [page, setPage] = useState('login');
+    const [pageStore, setPageStore,] = useState(1);
     const [data, setData] = useState([]);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [page, setPage] = useState('login');
     const [errHomeMessage, setErrHomeMessage] = useState(null);
     const contextValue = {
         errHomeMessage,
+        Label,
+        setLabel,
         Details, 
         setDetails,
+        pageStore,
+        setPageStore,
         ImagesHeader, 
         setImagesHeader,
         Show,

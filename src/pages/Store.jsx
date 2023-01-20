@@ -5,17 +5,20 @@ import Header from '../components/Header&Footer&Stuffs/Header';
 import Discs from '../components/Store/Discs';
 import Context from '../context/Context';
 import SearchHeader from '../components/Header&Footer&Stuffs/SearchHeader';
+import '../styles/Store.css';
+
 
 function Store() {
     const { disc } = useContext(Context);
 
     return (
-        <div className="Store">
+        <div className="psychodelic-background Store">
             <Header />
             {disc && <SearchHeader />}
             {disc && <Discs />}
             <Footer />
         </div>
+        
     );
 }
 
