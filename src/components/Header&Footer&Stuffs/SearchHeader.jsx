@@ -20,7 +20,6 @@ function SearchHeader() {
     };
 
     const findDiscBy = (() => {
-        console.log(searchBarr.length);
         if (searchBarr.length === 0 && alreadyRender) {
             setDisc(originalDiscs);
             return;
@@ -32,8 +31,6 @@ function SearchHeader() {
             setDisc(similar);
         } else if (searchParam === 'Caracteristica' || searchParam === 'Formatos' || searchParam === 'Produtor' || searchParam === 'Gravadora') {
             const similar = disc.filter(disc => unidecode(disc['details'][searchParam].toLowerCase()).includes(unidecode(searchBarr.toLowerCase())));
-            console.log(`"${searchBarr}"`);
-            console.log(similar);
             setDisc(similar);
         }
         else if (searchParam === 'musics') {

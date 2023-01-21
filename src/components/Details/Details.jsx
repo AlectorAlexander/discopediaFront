@@ -40,6 +40,7 @@ function Details() {
 
     const request = async () => {
         const response = await getDiscsById(id);
+        window.scroll(0,100);
         return setDetails(response.data);
     };
 

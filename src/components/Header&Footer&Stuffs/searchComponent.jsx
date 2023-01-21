@@ -10,13 +10,58 @@ const SearchComponent = ({searchParam, searchBarr, setSearchBarr, setDisc, origi
 
     const { Label } = useContext(Context);
 
-    const findDiscByDate = () => {
-        console.log(searchBarrDate1, searchBarrDate2);
+    const findDiscByDate1 = () => {
+        const condition1 = searchBarrDate1 >= 1900;
+        const condition4 = searchBarrDate1 <= 2022;
+        const secondDate = searchBarrDate2.length === 4 ? searchBarrDate2 : 2023;
+        if (searchBarrDate1.length === 4) {
+            if (condition1 && condition4) {
+                let discs = originalDiscs.filter(({details}) => {
+                    const { Lancamento } = details;
+                    return Number(Lancamento) >= searchBarrDate1 && Number(Lancamento) <= secondDate;
+                });
+                return setDisc(discs);
+            } else {
+                searchBarrDate1('');
+                searchBarrDate2('');
+                return setDisc(originalDiscs);
+            }
+        } else {
+            return setDisc(originalDiscs);
+        }
+    };
+
+    const findDiscByDate2 = () => {
+        const condition2 = searchBarrDate2 >= 1901;
+        const condition3 = searchBarrDate2 >= searchBarrDate1;
+        const condition5 = searchBarrDate2 <= 2023;
+        const secondDate = searchBarrDate1.length === 4 ? searchBarrDate1 : 1900;
+        
+        if (searchBarrDate2.length === 4) {
+            if (condition2 && condition3 && condition5) {
+                let discs = originalDiscs.filter(({details}) => {
+                    const { Lancamento } = details;
+                    return Number(Lancamento) <= searchBarrDate2 && Number(Lancamento) >= secondDate;
+                });
+                return setDisc(discs);
+            } else {
+                return setDisc(originalDiscs);
+            }
+        } else {
+            return setDisc(originalDiscs);
+        }
     };
 
     useEffect(() =>{
-        findDiscByDate();
-    }, [searchBarrDate1, searchBarrDate2]);
+        findDiscByDate1();
+        return () => {
+            setDisc(originalDiscs);
+        };
+    }, [searchBarrDate1]);
+
+    useEffect(() =>{
+        findDiscByDate2();
+    }, [searchBarrDate2]);
 
     const dateOfDiscParam = () => {
         return (

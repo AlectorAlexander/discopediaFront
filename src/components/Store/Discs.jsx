@@ -2,18 +2,16 @@
 import React, { useContext } from 'react';
 import { Button, Card, ListGroup} from 'react-bootstrap';
 import Context from '../../context/Context';
-import { useNavigate } from 'react-router';
 import PaginationLove from './pagination';
 
 function Discs() {
     const {pageStore, setDetails, data } = useContext(Context);
 
-    const history = useNavigate();
 
 
     const pageChangeToDetails = (item, _id) => {
         setDetails(item);
-        history(`/store/details/${_id}`);
+        window.open(`/store/details/${_id}`);
     };
 
     return (
