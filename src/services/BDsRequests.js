@@ -77,6 +77,24 @@ export async function UpdateDocumentUser( id, document ) {
     return response;
 }
 
+export async function UpdateDiscsUser( id, discId ) {
+    const response = await instance
+        .put('users', { id, diskId: discId })
+        .catch((error) => {
+            console.log(error);
+            return error.response;
+        });
+
+    if (response.data.token) {
+        const { data } = response;
+        const { token } = data;
+        console.log(data);
+        instance.defaults.headers.Authorization = token;
+        return response;
+    }
+    return response;
+}
+
 export async function UpdateDisc( id, disco ) {
     console.log(disco);
     const response = await instance

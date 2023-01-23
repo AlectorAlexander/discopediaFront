@@ -27,7 +27,7 @@ function Discs() {
                                 <ListGroup variant="flush">
                                     <ListGroup.Item className="cardsTitle">{artist}</ListGroup.Item>
                                 </ListGroup>
-                                <Button onClick={ () => pageChangeToDetails(item, _id)} variant="primary">Ver detalhes</Button>
+                                <Button className='buttons' onClick={ () => pageChangeToDetails(item, _id)} variant="danger">Ver detalhes</Button>
                             </Card.Body>
                        
                         </Card>

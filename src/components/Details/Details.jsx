@@ -4,7 +4,7 @@ import { Button, Card, ListGroup, Modal, Tab, Tabs } from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
 import PropTypes from 'prop-types';
 import Context from '../../context/Context';
-import { getDiscsById } from '../../services/BDsRequests';
+import { getDiscsById, UpdateDiscsUser } from '../../services/BDsRequests';
 import { useNavigate, useParams } from 'react-router';
 import '../../styles/styles.css';
 
@@ -19,23 +19,38 @@ function Details() {
     const handleCloseHave = () => setShowReadyHave(false);
     const handleCloseDontHave = () => setShowDontHave(false);
 
-    const seeTheCart = () => history('/cart');
+    const seeTheCart = () => history('/discase');
     const seeTheDiscs = () => history('/store');
 
-    const addItem = () => {
-        const actualCart = JSON.parse(localStorage.getItem('cart'));
-        if(actualCart.length) {
-            const readyHave = actualCart.some((item) => item.id === Number(id));
+    const addItemToBD = async () => {
+        const { id: userId } = JSON.parse(localStorage.getItem('user'));
+        const response = await UpdateDiscsUser(userId, id);
+        if (response && response.status === 409) {
+            const newElementCart = JSON.stringify([Details]);
+            localStorage.setItem('discase', newElementCart);
+            return setShowReadyHave(true);
+        } else if (response && response.status === 202) {
+            return setShowDontHave(true);
+        }
+    };
+
+    const addItem = async () => {
+        const discase = JSON.parse(localStorage.getItem('discase'));
+        if (!discase) {
+            return addItemToBD();
+        }
+        if(discase.length) {
+            const readyHave = discase.some((item) => item._id === id);
             if (readyHave) {
                 return setShowReadyHave(true);
             }
-            const newActualCart = JSON.stringify([...actualCart, Details]);
-            setShowDontHave(true);
-            return localStorage.setItem('cart', [newActualCart]);
+            await addItemToBD();
+            const newActualCart = JSON.stringify([...discase, Details]);
+            return localStorage.setItem('discase', [newActualCart]);
         }
         const newElementCart = JSON.stringify([Details]);
         setShowDontHave(true);
-        return localStorage.setItem('cart', newElementCart);
+        return localStorage.setItem('discase', newElementCart);
     };
 
     const request = async () => {
@@ -67,7 +82,7 @@ function Details() {
         return (<Modal show={showDontHave} onHide={handleCloseDontHave}>
             <Modal.Header closeButton>
             </Modal.Header>
-            <Modal.Body>title Adicionado!</Modal.Body>
+            <Modal.Body>Disco adicionado na estante!</Modal.Body>
             <Modal.Footer>
                 <Button variant="primary" onClick={handleCloseDontHave}>
                         OK
@@ -124,9 +139,9 @@ function Details() {
 
 
                 </div>
-                <Card className="m-3" style={{ width: '18rem' }}>
+                <Card className="m-3 card-details-background" style={{ width: '18rem' }}>
                     <Card.Body>
-                        <Card.Title class> <p className="titleDetails">{ title }</p></Card.Title>
+                        <Card.Title> <p className="titleDetails">{ title }</p></Card.Title>
                         <ListGroup variant="flush">
                             <ListGroup.Item className="list1">{artist}</ListGroup.Item>
                             <ListGroup.Item className="list2">{`Caracteristica: ${Caracteristica || '...'}`}</ListGroup.Item >
@@ -137,6 +152,7 @@ function Details() {
                             <ListGroup.Item className="list7">{`Produtor: ${Produtor || ' " . . . " '}`}</ListGroup.Item>
                         </ListGroup>
                         <Button
+                            className='buttons'
                             onClick={addItem}
                             variant="danger">Adicionar na estante</Button>
                     </Card.Body>
