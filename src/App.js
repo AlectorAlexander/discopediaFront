@@ -4,7 +4,7 @@ import './App.css';
 import Store from './pages/Store';
 import DiscDetails from './pages/DiscsDetails';
 import Cart from './pages/Cart';
-import MeusPedidos from './pages/MeusPedidos';
+import MinhaEstante from './pages/MinhaEstante';
 import Home from './pages/Home';
 import AdminProducts from './pages/AdminDisc';
 
@@ -18,7 +18,7 @@ function App() {
                 <Route path="/admin/store" element={<AdminProducts />}> </Route>
                 <Route path="/store/details/:id" element={<DiscDetails />}> </Route>
                 <Route path="/cart" element={<Cart />}> </Route>
-                <Route path="/pedidos" element={<MeusPedidos />}> </Route>
+                <Route path="/discase" element={<MinhaEstante />}> </Route>
             </Routes>
         </div>
     );

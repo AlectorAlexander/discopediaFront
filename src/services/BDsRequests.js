@@ -107,7 +107,6 @@ export async function UpdateDisc( id, disco ) {
 }
 
 export async function CreateDisc(disco ) {
-    console.log(disco);
     const response = await instance
         .post('disks/', { ...disco })
         .catch((error) => {
@@ -126,6 +125,18 @@ export async function getDiscs() {
             console.log(error);
             return error.response.error;
         });
+    return response;
+}
+
+export async function getDiscsUser() {
+    const {  id } = JSON.parse(localStorage.getItem('user'));
+    const response = await instance
+        .post('user/disc', {id})
+        .catch((error) => {
+            console.log(error);
+            return error.response.error;
+        });
+    console.log(response);
     return response;
 }
 

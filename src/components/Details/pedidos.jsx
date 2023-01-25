@@ -1,26 +1,40 @@
 /* eslint-disable react/jsx-filename-extension */
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Table } from 'react-bootstrap';
+import { Button, Table } from 'react-bootstrap';
+import MyRequestsModal from '../../hooks/Modals';
 
-function PedidosCheckout({ Pedidos, Total }) {
-    const totalPorAno = `R$${(Total).replace('.', ',')} Por Ano`;
-    const totalPorMês = `R$${(((Total / 12).toFixed(2))).replace('.', ',')} Por Mês`;
+function MyDiscsCheckout({ MyDiscs }) {
+    const [id, setId] = useState('');
+    const [show, setShow] = useState(false);
+    const manager = (_id) => {
+        setId(_id);
+        setShow(true);
+    };
+
+
+    
+    MyDiscsCheckout.propTypes = {
+        MyDiscs: PropTypes.shape().isRequired,
+    };
 
     return(
-        <div  className="Pedidos d-flex flex-wrap justify-content-around container-fluid">
+        <div  className="MyDiscs d-flex flex-wrap justify-content-around container-fluid">
+            <MyRequestsModal show={ show } setShow={ setShow } id={id} />
             <Table className="mt-5">
                 <thead>
                     <tr>
-                        <th>Item</th>
-                        <th>Modelo</th>
-                        <th>Valor Anual</th>
-                        <th>Valor Mensal</th>
+                        <th>Disco</th>
+                        <th>Artista</th>
+                        <th>Data de Lançamento</th>
+                        <th>Formatos</th>
+                        <th>Quantidade de Músicas</th>
+                        <th>Gerenciar</th>
                     </tr>
                 </thead>
-                {Pedidos.length > 0 && Pedidos.map((product, i) => {
-                    const { id, produto, valor } = product;
-                    const valuePerMonth = (valor / 12).toFixed(2, 2);
+                {MyDiscs && MyDiscs.length > 0 && MyDiscs.map((product, i) => {
+                    const { title, artist, details, musics, _id } = product;
+                    const {Formatos, Lancamento} = details;
                     return (
                         <tbody
                             key={ i }
@@ -28,42 +42,43 @@ function PedidosCheckout({ Pedidos, Total }) {
                             <tr>
                                 <td
                                 >
-                                    { id }
+                                    { title }
 
                                 </td>
                                 <td
                                 >
-                                    { produto }
+                                    { artist }
 
                                 </td>
                                 
                                 <td
                                 >
-                                    { valor.replace('.', ',') }
+                                    { Lancamento }
 
                                 </td>
                                 <td
                                 >
-                                    {valuePerMonth.replace('.', ',') }
+                                    {Formatos }
 
                                 </td>
-                               
+
+                                <td
+                                >
+                                    {musics.length }
+
+                                </td>
+                                <td>
+                                    <Button className='buttons' onClick={ () => manager(_id)} variant="danger">Edite</Button>
+                                </td>
                             </tr>
                         </tbody>
                     );
                 })}
             </Table>
-            <div>
-                <h1>{` ${totalPorMês}`}</h1>
-                <h1>{` Ou ${totalPorAno}`}</h1>
-            </div>
         </div>);
 }
 
-PedidosCheckout.propTypes = {
-    Pedidos: PropTypes.shape().isRequired,
-    Total: PropTypes.string.isRequired,
-};
+
     
 
-export default PedidosCheckout;
+export default MyDiscsCheckout;

@@ -49,8 +49,7 @@ function Header() {
 
     const renderTheRightHeader = !admin ? (
         <Nav className="me-auto">
-            <Nav.Link style={{  }} href="/cart">Carrinho</Nav.Link>
-            <Nav.Link style={{  }} href="/pedidos">Meus Pedidos</Nav.Link>
+            <Nav.Link style={{  }} href="/discase">Minha Estante</Nav.Link>
         </Nav>
     ) : (
         <Nav className="me-auto">

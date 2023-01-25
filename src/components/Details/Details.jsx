@@ -69,7 +69,7 @@ function Details() {
                         OK
                 </Button>
                 <Button variant="primary" onClick={seeTheCart}>
-                      Ver no carrinho
+                      Ver na Estante
                 </Button>
                 <Button variant="primary" onClick={seeTheDiscs}>
                         Ver mais Discos
