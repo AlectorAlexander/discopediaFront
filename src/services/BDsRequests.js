@@ -79,7 +79,7 @@ export async function UpdateDocumentUser( id, document ) {
 
 export async function UpdateDiscsUser( id, discId ) {
     const response = await instance
-        .put('users', { id, diskId: discId })
+        .put('user/disc', { id, diskId: discId })
         .catch((error) => {
             console.log(error);
             return error.response;
@@ -89,6 +89,26 @@ export async function UpdateDiscsUser( id, discId ) {
         const { data } = response;
         const { token } = data;
         console.log(data);
+        instance.defaults.headers.Authorization = token;
+        return response;
+    }
+    return response;
+}
+
+export async function DeleteDiscsUser(discId) {
+    const { id } = JSON.parse(localStorage.getItem('user'));
+    const body = {id, diskId: discId};
+    console.log(body);
+    const response = await instance
+        .delete('user/disc', { data: body })
+        .catch((error) => {
+            console.log(error); 
+            return error.response;
+        });
+
+    if (response.data.token) {
+        const { data } = response;
+        const { token } = data;
         instance.defaults.headers.Authorization = token;
         return response;
     }

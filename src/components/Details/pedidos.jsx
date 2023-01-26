@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Button, Table } from 'react-bootstrap';
 import MyRequestsModal from '../../hooks/Modals';
 
-function MyDiscsCheckout({ MyDiscs }) {
+function MyDiscsCheckout({ MyDiscs, setMyDiscs }) {
     const [id, setId] = useState('');
     const [show, setShow] = useState(false);
     const manager = (_id) => {
@@ -15,12 +15,13 @@ function MyDiscsCheckout({ MyDiscs }) {
 
     
     MyDiscsCheckout.propTypes = {
+        setMyDiscs: PropTypes.func.isRequired,
         MyDiscs: PropTypes.shape().isRequired,
     };
 
     return(
         <div  className="MyDiscs d-flex flex-wrap justify-content-around container-fluid">
-            <MyRequestsModal show={ show } setShow={ setShow } id={id} />
+            <MyRequestsModal show={ show } setMyDiscs={setMyDiscs} setShow={ setShow } id={id} />
             <Table className="mt-5">
                 <thead>
                     <tr>

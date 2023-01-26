@@ -26,7 +26,8 @@ const SearchComponent = ({searchParam, searchBarr, setSearchBarr, setDisc, origi
                 searchBarrDate2('');
                 return setDisc(originalDiscs);
             }
-        } else {
+        } else if (searchBarrDate1.length !== 4 && originalDiscs.length > 0) {
+            console.log(originalDiscs);
             return setDisc(originalDiscs);
         }
     };
@@ -47,7 +48,8 @@ const SearchComponent = ({searchParam, searchBarr, setSearchBarr, setDisc, origi
             } else {
                 return setDisc(originalDiscs);
             }
-        } else {
+        } else if (searchBarrDate1.length !== 4 && originalDiscs.length > 0) {
+            console.log(originalDiscs);
             return setDisc(originalDiscs);
         }
     };
@@ -55,7 +57,10 @@ const SearchComponent = ({searchParam, searchBarr, setSearchBarr, setDisc, origi
     useEffect(() =>{
         findDiscByDate1();
         return () => {
-            setDisc(originalDiscs);
+            if (originalDiscs.length > 0) {
+                console.log('a');
+                return setDisc(originalDiscs);
+            }
         };
     }, [searchBarrDate1]);
 

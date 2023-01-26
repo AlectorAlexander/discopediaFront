@@ -21,6 +21,7 @@ function SearchHeader() {
 
     const findDiscBy = (() => {
         if (searchBarr.length === 0 && alreadyRender) {
+            console.log('a');
             setDisc(originalDiscs);
             return;
         }
@@ -29,27 +30,38 @@ function SearchHeader() {
         if (searchParam === 'title' || searchParam === 'artist') {
             const similar = disc.filter(disc => unidecode(disc[searchParam].toLowerCase()).includes(unidecode(searchBarr.toLowerCase())));
             setDisc(similar);
+            console.log(similar);
         } else if (searchParam === 'Caracteristica' || searchParam === 'Formatos' || searchParam === 'Produtor' || searchParam === 'Gravadora') {
             const similar = disc.filter(disc => unidecode(disc['details'][searchParam].toLowerCase()).includes(unidecode(searchBarr.toLowerCase())));
             setDisc(similar);
+            console.log('a');
         }
         else if (searchParam === 'musics') {
             const similar = disc.filter(d => d.musics.map(m => unidecode(m)).filter(m => m.toLowerCase().includes(unidecode(searchBarr.toLowerCase()))).length > 0);
             setDisc(similar);
+            console.log('a');
         }
     });
 
     useEffect(() => {
         if (!originalDiscs.length) {
-            setOriginalDisks(disc);
+            return setOriginalDisks(disc);
         } 
         if (disc) {
             findDiscBy();
         }
-        return () => {
-            setDisc(originalDiscs);
-        };
+       
     }, [searchBarr]);
+
+    useEffect(() => {
+        return () => {
+            if (originalDiscs.length > 0) {
+                console.log('a');
+                return setDisc(originalDiscs);
+            }
+        };
+    }, []);
+
 
     useEffect(() => {
         setPageStore(1);

@@ -8,6 +8,7 @@ import { getDiscsUser } from '../services/BDsRequests';
 function MinhaEstante() {
     const [MyDiscs, setMyDiscs] = useState([]);
 
+
     const request = async () => {
         const discase = JSON.parse(localStorage.getItem('discase'));
         if (!discase) {
@@ -22,12 +23,12 @@ function MinhaEstante() {
     };
     useEffect(() => {
         request();
-    }, []);
+    }, [MyDiscs]);
 
     return (
         <div className="MinhaEstante">
             <Header />
-            {MyDiscs.length > 0 && <MyDiscsCheckout MyDiscs={ MyDiscs } />}
+            {MyDiscs.length > 0 && <MyDiscsCheckout setMyDiscs={setMyDiscs} MyDiscs={ MyDiscs } />}
             <Footer />
         </div>
     );
