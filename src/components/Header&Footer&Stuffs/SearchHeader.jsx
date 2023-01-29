@@ -44,7 +44,7 @@ function SearchHeader() {
     });
 
     useEffect(() => {
-        if (!originalDiscs.length) {
+        if (!originalDiscs.length && disc.length > 0) {
             return setOriginalDisks(disc);
         } 
         if (disc) {
@@ -52,16 +52,6 @@ function SearchHeader() {
         }
        
     }, [searchBarr]);
-
-    useEffect(() => {
-        return () => {
-            if (originalDiscs.length > 0) {
-                console.log('a');
-                return setDisc(originalDiscs);
-            }
-        };
-    }, []);
-
 
     useEffect(() => {
         setPageStore(1);

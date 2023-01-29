@@ -56,12 +56,6 @@ const SearchComponent = ({searchParam, searchBarr, setSearchBarr, setDisc, origi
 
     useEffect(() =>{
         findDiscByDate1();
-        return () => {
-            if (originalDiscs.length > 0) {
-                console.log('a');
-                return setDisc(originalDiscs);
-            }
-        };
     }, [searchBarrDate1]);
 
     useEffect(() =>{

@@ -11,7 +11,7 @@ import CarouselComponent from './carrossel';
 function Header() {
     const [admin, setAdmin] = useState(false);
     const history = useNavigate();
-    const { setPage, setImagesHeader, setDisc, disc, setLabel } = useContext(Context);
+    const { setPage, setImagesHeader, setDisc, setLabel } = useContext(Context);
 
     const request = async () => {
         const response = await getDiscs();
@@ -36,10 +36,8 @@ function Header() {
     };
 
     useEffect(() => {
-        if (!disc) {
-            request();
-        }
-    }, [disc]);
+        request();
+    }, []);
 
     const Logout = () => {
         setPage('login');

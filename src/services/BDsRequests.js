@@ -98,7 +98,6 @@ export async function UpdateDiscsUser( id, discId ) {
 export async function DeleteDiscsUser(discId) {
     const { id } = JSON.parse(localStorage.getItem('user'));
     const body = {id, diskId: discId};
-    console.log(body);
     const response = await instance
         .delete('user/disc', { data: body })
         .catch((error) => {
