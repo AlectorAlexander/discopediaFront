@@ -30,7 +30,6 @@ function SearchHeader() {
         if (searchParam === 'title' || searchParam === 'artist') {
             const similar = disc.filter(disc => unidecode(disc[searchParam].toLowerCase()).includes(unidecode(searchBarr.toLowerCase())));
             setDisc(similar);
-            console.log(similar);
         } else if (searchParam === 'Caracteristica' || searchParam === 'Formatos' || searchParam === 'Produtor' || searchParam === 'Gravadora') {
             const similar = disc.filter(disc => unidecode(disc['details'][searchParam].toLowerCase()).includes(unidecode(searchBarr.toLowerCase())));
             setDisc(similar);
