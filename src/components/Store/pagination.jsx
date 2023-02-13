@@ -6,11 +6,11 @@ import usePaginationData from '../../hooks/usePagination';
 
 function PaginationLove () {
 
-    const { pageStore, data } = useContext(Context);
+    const { pageStore, pagesLenght } = useContext(Context);
     const { onChangePage } = usePaginationData();
 
 
-    const total = data.length; 
+    const total = pagesLenght; 
     const current = pageStore;
 
     /* Esse código é responsável por renderizar as diferentes opções de paginação, como os botões de "Primeira Página", "Anterior", "Próxima", "Última Página" e também os botões de números de página */

@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const imageType = 'image/jpeg';
 
+
 const baseURL = 'http://localhost:3001/';
 
 const instance = axios.create({
@@ -143,6 +144,16 @@ export async function getDiscs() {
         .catch((error) => {
             console.log(error);
             return error.response.error;
+        });
+    return response;
+}
+
+export async function getDiscsForPaginations(page, limit) {
+    const response = await instance
+        .post('/disks/pagination', { page, limit })
+        .catch((error) => {
+            console.log(error);
+            return error.response;
         });
     return response;
 }

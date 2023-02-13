@@ -5,7 +5,6 @@ import Header from '../components/Header&Footer&Stuffs/Header';
 import Details from '../components/Details/Details';
 
 function DiscDetails() {
-
     return (
         <div className="psychodelic-background">
             <Header />

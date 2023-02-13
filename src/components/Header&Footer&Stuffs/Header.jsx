@@ -3,19 +3,19 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 import { useNavigate } from 'react-router';
 import Context from '../../context/Context';
-import { validateUser } from '../../services/BDsRequests';
+import { getDiscsForPaginations, validateUser } from '../../services/BDsRequests';
 import { getDiscs } from '../../services/BDsRequests';
 import CarouselComponent from './carrossel';
 
 
 function Header() {
     const [admin, setAdmin] = useState(false);
+    const [PagesClicked, setPagesClicked] = useState([]);
     const history = useNavigate();
-    const { setPage, setImagesHeader, setDisc, setLabel } = useContext(Context);
+    const { setPage, pageStore, setImagesHeader, disc, setPagesLenght, setDisc, setLabel } = useContext(Context);
 
     const request = async () => {
-        const response = await getDiscs();
-        const { data } = response;
+        const { data } = await getDiscs();
         data.map( async ({ url_img, details }) => {
             const { Gravadora } = details;
             setLabel((prevLabel) => prevLabel.concat(Gravadora));
@@ -32,12 +32,35 @@ function Header() {
             return prevLabel.filter((val, index) => prevLabel.indexOf(val) === index)
                 .filter((el) => el !== '').sort();
         });
-        return setDisc(data);
+        if (data.length % 9 !== 0) {
+            setPagesLenght(parseInt(data.length / 9) + 1);
+        } else {
+            setPagesLenght(data.length / 9);
+        }
+        return paginationUser();
     };
+
+    const paginationUser = async () => {
+        const alreadyClick = PagesClicked.some((page) => pageStore === page);
+        if (!alreadyClick) {
+            setPagesClicked((prev) => prev.concat(pageStore));
+            const { data } = await getDiscsForPaginations(pageStore, 9);
+            console.log(data);
+            if (!disc) {
+                return setDisc(data);
+            }
+            return setDisc((prev) => prev.concat(data));
+        }
+    };
+
 
     useEffect(() => {
         request();
     }, []);
+
+    useEffect(() => {
+        paginationUser();
+    }, [pageStore]);
 
     const Logout = () => {
         setPage('login');

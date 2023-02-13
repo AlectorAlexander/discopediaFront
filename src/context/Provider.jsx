@@ -7,6 +7,7 @@ import Context from './Context';
 function Provider({ children }) {
     const [Loading, setLoading] = useState(false);
     const [disc, setDisc] = useState(null);
+    const [pagesLenght, setPagesLenght] = useState(0);
     const [Show, setShow] = useState(false);
     const [Label, setLabel] = useState([]);
     const [ImagesHeader, setImagesHeader] = useState([]);
@@ -26,6 +27,8 @@ function Provider({ children }) {
         setDetails,
         pageStore,
         setPageStore,
+        pagesLenght, 
+        setPagesLenght,
         ImagesHeader, 
         setImagesHeader,
         Show,

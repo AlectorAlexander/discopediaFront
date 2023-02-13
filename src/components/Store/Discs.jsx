@@ -20,7 +20,7 @@ function Discs() {
     return (
         <div className='d-flex justify-content-center flex-column'>
             <div className="disc d-flex flex-wrap justify-content-center container-fluid">
-                {data.length > 0 && data[pageStore - 1].map((item, i) => {
+                {data.length > 0 && data[pageStore - 1] && data[pageStore - 1].map((item, i) => {
                     const { _id, title, artist, url_img } = item;
                     return (
                         <Card key={ i } className="m-3" style={{ width: '18rem' }}>
