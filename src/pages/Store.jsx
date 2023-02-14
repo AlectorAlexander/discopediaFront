@@ -6,6 +6,7 @@ import Discs from '../components/Store/Discs';
 import Context from '../context/Context';
 import SearchHeader from '../components/Header&Footer&Stuffs/SearchHeader';
 import '../styles/Store.css';
+import PaginationLove from '../components/Store/pagination';
 
 
 function Store() {
@@ -16,6 +17,7 @@ function Store() {
             <Header />
             {disc && <SearchHeader />}
             {disc && <Discs />}
+            <PaginationLove />
             <Footer />
         </div>
         

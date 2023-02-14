@@ -5,7 +5,8 @@ import React, { useState } from 'react';
 import Context from './Context';
 
 function Provider({ children }) {
-    const [Loading, setLoading] = useState(false);
+    const [Loading, setLoading] = useState(true);
+    const [ActualPage, setActualPage] = useState();
     const [disc, setDisc] = useState(null);
     const [pagesLenght, setPagesLenght] = useState(0);
     const [Show, setShow] = useState(false);
@@ -21,6 +22,8 @@ function Provider({ children }) {
     const [errHomeMessage, setErrHomeMessage] = useState(null);
     const contextValue = {
         errHomeMessage,
+        ActualPage, 
+        setActualPage,
         Label,
         setLabel,
         Details, 

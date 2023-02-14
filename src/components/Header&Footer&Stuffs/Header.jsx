@@ -3,16 +3,15 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 import { useNavigate } from 'react-router';
 import Context from '../../context/Context';
-import { getDiscsForPaginations, validateUser } from '../../services/BDsRequests';
+import { validateUser } from '../../services/BDsRequests';
 import { getDiscs } from '../../services/BDsRequests';
 import CarouselComponent from './carrossel';
 
 
 function Header() {
     const [admin, setAdmin] = useState(false);
-    const [PagesClicked, setPagesClicked] = useState([]);
     const history = useNavigate();
-    const { setPage, pageStore, setImagesHeader, disc, setPagesLenght, setDisc, setLabel } = useContext(Context);
+    const { setPage,   setImagesHeader,  setPagesLenght,  setLabel } = useContext(Context);
 
     const request = async () => {
         const { data } = await getDiscs();
@@ -37,30 +36,13 @@ function Header() {
         } else {
             setPagesLenght(data.length / 9);
         }
-        return paginationUser();
     };
-
-    const paginationUser = async () => {
-        const alreadyClick = PagesClicked.some((page) => pageStore === page);
-        if (!alreadyClick) {
-            setPagesClicked((prev) => prev.concat(pageStore));
-            const { data } = await getDiscsForPaginations(pageStore, 9);
-            console.log(data);
-            if (!disc) {
-                return setDisc(data);
-            }
-            return setDisc((prev) => prev.concat(data));
-        }
-    };
-
 
     useEffect(() => {
         request();
     }, []);
 
-    useEffect(() => {
-        paginationUser();
-    }, [pageStore]);
+  
 
     const Logout = () => {
         setPage('login');

@@ -1,17 +1,38 @@
 /* eslint-disable no-unused-vars */
 import { Pagination } from 'react-bootstrap';
-import React, { useContext } from 'react';
+import { getDiscsForPaginations } from '../../services/BDsRequests';
+import React, { useContext, useEffect, useState } from 'react';
 import Context from '../../context/Context';
 import usePaginationData from '../../hooks/usePagination';
 
 function PaginationLove () {
 
-    const { pageStore, pagesLenght } = useContext(Context);
+    const [PagesClicked, setPagesClicked] = useState([]);
+    const { pageStore, setLoading, setActualPage, disc, setDisc,pagesLenght } = useContext(Context);
     const { onChangePage } = usePaginationData();
 
 
     const total = pagesLenght; 
     const current = pageStore;
+
+    const paginationUser = async () => {
+        const alreadyClick = PagesClicked.some((page) => pageStore === page);
+        if (!alreadyClick) {
+            setLoading(true);
+            const { data } = await getDiscsForPaginations(pageStore, 9);
+            setActualPage(data);
+            setPagesClicked((prev) => prev.concat(pageStore));
+            if (!disc || disc.length < 1) {
+                return setDisc(data);
+            }
+            return setDisc((prev) => prev.concat(data));
+        }
+        return setLoading(false);
+    };
+
+    useEffect(() => {
+        paginationUser();
+    }, [pageStore]);
 
     /* Esse código é responsável por renderizar as diferentes opções de paginação, como os botões de "Primeira Página", "Anterior", "Próxima", "Última Página" e também os botões de números de página */
     const firstAndPrev = () => {
