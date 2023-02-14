@@ -63,7 +63,7 @@ function SearchHeader() {
     return (
         <Form className='p-5 d-flex justify-content-center'>
             
-            <Row>
+            <Row className='d-flex justify-content-center w-75'>
                 <Col xs={3}>
                     <Form.Label>Pesquisar por:</Form.Label>
                 </Col>
@@ -79,10 +79,13 @@ function SearchHeader() {
                         <option value="artist">Artista</option>
                     </Form.Control>
                 </Col>
-                <Col xs={6}>
+                <Col className='d-flex justify-content-center' xs={5}>
                     <SearchComponent setDisc={setDisc} originalDiscs={originalDiscs} searchParam={searchParam} searchBarr={ searchBarr } setSearchBarr={setSearchBarr} />
+                    
                 </Col>
+                   
             </Row>
+            
         </Form>
     );
 }

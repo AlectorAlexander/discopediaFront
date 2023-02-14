@@ -158,6 +158,16 @@ export async function getDiscsForPaginations(page, limit) {
     return response;
 }
 
+export async function getDiscsBySearch(params) {
+    const response = await instance
+        .post('/disks/params', { params })
+        .catch((error) => {
+            console.log(error);
+            return error.response;
+        });
+    return response;
+}
+
 export async function getDiscsUser() {
     const {  id } = JSON.parse(localStorage.getItem('user'));
     const response = await instance

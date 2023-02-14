@@ -31,10 +31,11 @@ function MyDiscsCheckout({ MyDiscs, setMyDiscs }) {
                         <th>Formatos</th>
                         <th>Quantidade de Músicas</th>
                         <th>Gerenciar</th>
+                        <th>Ouvir</th>
                     </tr>
                 </thead>
                 {MyDiscs && MyDiscs.length > 0 && MyDiscs.map((product, i) => {
-                    const { title, artist, details, musics, _id } = product;
+                    const { title, artist, details, musics, album_link, _id } = product;
                     const {Formatos, Lancamento} = details;
                     return (
                         <tbody
@@ -70,6 +71,12 @@ function MyDiscsCheckout({ MyDiscs, setMyDiscs }) {
                                 </td>
                                 <td>
                                     <Button className='buttons' onClick={ () => manager(_id)} variant="danger">Edite</Button>
+                                </td>
+                                <td>
+                                    <Button
+                                        onClick={(() => {window.open(album_link);})}
+                                        variant="danger">Link do Álbum
+                                    </Button>
                                 </td>
                             </tr>
                         </tbody>

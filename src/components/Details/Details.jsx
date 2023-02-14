@@ -60,6 +60,7 @@ function Details() {
     };
 
     const ModalReadyHave = () => {
+        const { album_link } = Details;
         return (<Modal show={showReadyHave} onHide={handleCloseHave}>
             <Modal.Header closeButton>
             </Modal.Header>
@@ -74,11 +75,16 @@ function Details() {
                 <Button variant="primary" onClick={seeTheDiscs}>
                         Ver mais Discos
                 </Button>  
+                <Button
+                    onClick={(() => {window.open(album_link);})}
+                    variant="danger">Ouvir o álbum
+                </Button>
             </Modal.Footer>
         </Modal>);
     };
 
     const ModalDontHave = () => {
+        const { album_link } = Details;
         return (<Modal show={showDontHave} onHide={handleCloseDontHave}>
             <Modal.Header closeButton>
             </Modal.Header>
@@ -88,11 +94,15 @@ function Details() {
                         OK
                 </Button>
                 <Button variant="primary" onClick={seeTheCart}>
-                      Ver no carrinho
+                      Ver na Estante
                 </Button>
                 <Button variant="primary" onClick={seeTheDiscs}>
                         Ver mais Discos
-                </Button>  
+                </Button>
+                <Button
+                    onClick={(() => {window.open(album_link);})}
+                    variant="danger">Ouvir o álbum
+                </Button>
             </Modal.Footer>
         </Modal>);
     };
@@ -106,7 +116,7 @@ function Details() {
 
     
     function render() {
-        const { title, artist, url_img, musics, details } = Details;
+        const { title, artist, url_img, musics, album_link, details } = Details;
         const { Caracteristica, Formatos, Gravadora, Lancamento, Observacao, Produtor } = details;
         return(
 
@@ -154,7 +164,13 @@ function Details() {
                         <Button
                             className='buttons'
                             onClick={addItem}
-                            variant="danger">Adicionar na estante</Button>
+                            variant="danger">Adicionar na estante
+                        </Button>
+                        <Button
+                            className='buttons'
+                            onClick={(() => {window.open(album_link);})}
+                            variant="danger">Link do Álbum
+                        </Button>
                     </Card.Body>
                 </Card>
             </div>);

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Form, FormControl} from 'react-bootstrap';
+import { Button, Form, FormControl} from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import Context from '../../context/Context';
 
@@ -66,14 +66,14 @@ const SearchComponent = ({searchParam, searchBarr, setSearchBarr, setDisc, origi
         return (
             <div className='d-flex'>
                 <FormControl
-                    className='w-25 me-1' 
+                    className='w-50 me-1' 
                     type="number"
                     max='4'
                     placeholder="Do ano" 
                     value={searchBarrDate1} onChange={({target}) => setsearchBarrDate1(target.value)}
                 />
                 <FormControl
-                    className='w-25 ms-1' 
+                    className='w-50 ms-1' 
                     type="number"
                     maxLength={4}
                     placeholder="Até" 
@@ -103,7 +103,7 @@ const SearchComponent = ({searchParam, searchBarr, setSearchBarr, setDisc, origi
     const labelOfDiscParam = () => {
         return (<Form.Select
             onChange={onBarrChange} 
-            aria-label="Default select example"
+            aria-label="Escolha a gravadora"
         >
             <option value="">Open this select menu</option>
             {Label.map((gravadora, i) => {
@@ -117,7 +117,7 @@ const SearchComponent = ({searchParam, searchBarr, setSearchBarr, setDisc, origi
     const typeOfDiscParam = () => {
         return (<Form.Select
             onChange={onBarrChange} 
-            aria-label="Default select example"
+            aria-label="Escolha o tipo de disco"
         >
             <option value="">Open this select menu</option>
             <option value="LP">LP</option>
@@ -131,7 +131,7 @@ const SearchComponent = ({searchParam, searchBarr, setSearchBarr, setDisc, origi
         return (<FormControl
             className='w-50'
             type="text"
-            placeholder="Pesquisar..." 
+            placeholder="Digite..." 
             value={searchBarr} onChange={onBarrChange}
         />);
     };
@@ -146,7 +146,7 @@ const SearchComponent = ({searchParam, searchBarr, setSearchBarr, setDisc, origi
     };
 
     return (
-        <div>
+        <div className='d-flex justify-content-center'>
             {searchParam === 'title' && titleOfDiscParam()}
             {searchParam === 'Produtor' && titleOfDiscParam()}
             {searchParam === 'artist' && titleOfDiscParam()}
@@ -155,6 +155,12 @@ const SearchComponent = ({searchParam, searchBarr, setSearchBarr, setDisc, origi
             {searchParam === 'Formatos' && typeOfDiscParam() }
             {searchParam === 'Gravadora' && labelOfDiscParam() }
             {searchParam === 'Lancamento' && dateOfDiscParam() }
+            <Button
+                className='brazilian_colors mx-4'
+                variant="danger"
+            >
+                        Pesquisar
+            </Button>
         </div>
     );
 };
