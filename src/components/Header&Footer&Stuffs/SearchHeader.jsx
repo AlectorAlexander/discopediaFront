@@ -5,7 +5,7 @@ import SearchComponent from './searchComponent';
 import { getDiscsBySearch } from '../../services/BDsRequests';
 
 function SearchHeader() {
-    const { setPageStore, setLoading } = useContext(Context);
+    const { setPageStore, setLoading, setData } = useContext(Context);
     const [NewDiscs, setNewDiscs] = useState(null);
     const [PromiseReturned, setPromiseReturned] = useState(false);
     const [searchParam, setSearchParam] = useState('title');
@@ -30,9 +30,24 @@ function SearchHeader() {
             return onSearch();
         }
         searchTimeControll = 0;
-        console.log(NewDiscs);
+        setLoading(true);     
         setPromiseReturned(false);
-        return setLoading(false);
+        console.log(NewDiscs);
+        if (NewDiscs.length > 0 && NewDiscs.length < 400) {
+            console.log('ebtriy');
+            const newCardsDiscs = [];
+            for (let i = 0; i < NewDiscs.length; i += 9) {
+                const discsGroup = NewDiscs.slice(i, i + 9);
+                newCardsDiscs.push(discsGroup);
+                if (i >= NewDiscs.length - 9 && newCardsDiscs < 9) {
+                    const restoInPeace = newCardsDiscs.slice(i + 9);
+                    newCardsDiscs.push(restoInPeace);
+                }
+            }
+            setData(newCardsDiscs);
+            console.log(newCardsDiscs);
+        }
+        return setLoading(false);     
     };
 
     const onChangeParams = ({ target }) => {
@@ -50,24 +65,24 @@ function SearchHeader() {
             setPromiseReturned(false);
             setNewDiscs(null);
             params[searchParam] = searchBarr;
-            const newDiscs = await getDiscsBySearch(params);
-            setNewDiscs(newDiscs);
+            const { data } = await getDiscsBySearch(params);
+            setNewDiscs(data);
             return setPromiseReturned(true);
 
         } else if (searchParam === 'Caracteristica' || searchParam === 'Formatos' || searchParam === 'Produtor' || searchParam === 'Gravadora') {
             setPromiseReturned(false);
             setNewDiscs(null);
             params[`details.${searchParam}`] = searchBarr;
-            const newDiscs = await getDiscsBySearch(params);
-            setNewDiscs(newDiscs);
+            const { data } = await getDiscsBySearch(params);
+            setNewDiscs(data);
             return setPromiseReturned(true);
         }
         else if (searchParam === 'musics') {
             setPromiseReturned(false);
             setNewDiscs(null);
             params[searchParam] = searchBarr;
-            const newDiscs = await getDiscsBySearch(params);
-            setNewDiscs(newDiscs);
+            const { data } = await getDiscsBySearch(params);
+            setNewDiscs(data);
             return setPromiseReturned(true);
         }
     });

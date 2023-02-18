@@ -8,7 +8,7 @@ import usePaginationData from '../../hooks/usePagination';
 function PaginationLove () {
 
     const [PagesClicked, setPagesClicked] = useState([]);
-    const { pageStore, setLoading, setActualPage, disc, setDisc,pagesLenght } = useContext(Context);
+    const { pageStore, setLoading, setActualPage, disc, setDisc, pagesLenght, setPagesLenght, data } = useContext(Context);
     const { onChangePage } = usePaginationData();
 
 
@@ -16,7 +16,8 @@ function PaginationLove () {
     const current = pageStore;
 
     const paginationUser = async () => {
-        const alreadyClick = PagesClicked.some((page) => pageStore === page);
+        const alreadyClick = data[pageStore - 1] !== undefined;
+        console.log(data[pageStore - 1]);
         if (!alreadyClick) {
             setLoading(true);
             const { data } = await getDiscsForPaginations(pageStore, 9);
@@ -71,6 +72,14 @@ function PaginationLove () {
             </>
         );
     };
+
+    useEffect(() => {
+        if (data.length > 0 && data.length !== pagesLenght) {
+            setPagesLenght(data.length);
+            firstAndPrev();
+        }
+        
+    }, [data]);
 
 
     return (

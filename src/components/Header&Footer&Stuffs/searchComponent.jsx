@@ -23,7 +23,8 @@ const SearchComponent = ({searchParam, PromiseReturned, searchBarr, setSearchBar
                     'details.Lancamento': [searchBarrDate1, secondDate]
                 };
                 
-                setNewDiscs(await getDiscsBySearch(params));
+                const { data } = await getDiscsBySearch(params);
+                setNewDiscs(data);
                 return setPromiseReturned(true);
             } else {
                 searchBarrDate1('');
@@ -50,7 +51,8 @@ const SearchComponent = ({searchParam, PromiseReturned, searchBarr, setSearchBar
                     'details.Lancamento': [firstDate, searchBarrDate2]
                 };
                 
-                setNewDiscs(await getDiscsBySearch(params));
+                const { data } = await getDiscsBySearch(params);
+                setNewDiscs(data);
                 return setPromiseReturned(true);
             } else {
                 setPromiseReturned(false);
