@@ -2,63 +2,73 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Button, Form, FormControl} from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import Context from '../../context/Context';
+import { getDiscsBySearch } from '../../services/BDsRequests';
 
-const SearchComponent = ({searchParam, searchBarr, setSearchBarr, setDisc, originalDiscs}) => {
+const SearchComponent = ({searchParam, PromiseReturned, searchBarr, setSearchBarr, setNewDiscs, onSearch, setPromiseReturned}) => {
 
     const [searchBarrDate1, setsearchBarrDate1] = useState('');
     const [searchBarrDate2, setsearchBarrDate2] = useState('');
 
     const { Label } = useContext(Context);
 
-    const findDiscByDate1 = () => {
+    const findDiscByDate1 = async () => {
         const condition1 = searchBarrDate1 >= 1900;
         const condition4 = searchBarrDate1 <= 2022;
         const secondDate = searchBarrDate2.length === 4 ? searchBarrDate2 : 2023;
         if (searchBarrDate1.length === 4) {
             if (condition1 && condition4) {
-                let discs = originalDiscs.filter(({details}) => {
-                    const { Lancamento } = details;
-                    return Number(Lancamento) >= searchBarrDate1 && Number(Lancamento) <= secondDate;
-                });
-                return setDisc(discs);
+                setPromiseReturned(false);
+                setNewDiscs(null);
+                const params = {
+                    'details.Lancamento': [searchBarrDate1, secondDate]
+                };
+                
+                setNewDiscs(await getDiscsBySearch(params));
+                return setPromiseReturned(true);
             } else {
                 searchBarrDate1('');
                 searchBarrDate2('');
-                return setDisc(originalDiscs);
+                return;
             }
-        } else if (searchBarrDate1.length !== 4 && originalDiscs.length > 0) {
-            console.log(originalDiscs);
-            return setDisc(originalDiscs);
+        } else if (searchBarrDate1.length !== 4) {
+            setPromiseReturned(false);
+            return;
         }
     };
 
-    const findDiscByDate2 = () => {
+    const findDiscByDate2 = async () => {
         const condition2 = searchBarrDate2 >= 1901;
         const condition3 = searchBarrDate2 >= searchBarrDate1;
         const condition5 = searchBarrDate2 <= 2023;
-        const secondDate = searchBarrDate1.length === 4 ? searchBarrDate1 : 1900;
+        const firstDate = searchBarrDate1.length === 4 ? searchBarrDate1 : 1900;
         
+        setPromiseReturned(false);
         if (searchBarrDate2.length === 4) {
             if (condition2 && condition3 && condition5) {
-                let discs = originalDiscs.filter(({details}) => {
-                    const { Lancamento } = details;
-                    return Number(Lancamento) <= searchBarrDate2 && Number(Lancamento) >= secondDate;
-                });
-                return setDisc(discs);
+                setNewDiscs(null);
+                const params = {
+                    'details.Lancamento': [firstDate, searchBarrDate2]
+                };
+                
+                setNewDiscs(await getDiscsBySearch(params));
+                return setPromiseReturned(true);
             } else {
-                return setDisc(originalDiscs);
+                setPromiseReturned(false);
+                return;
             }
-        } else if (searchBarrDate1.length !== 4 && originalDiscs.length > 0) {
-            console.log(originalDiscs);
-            return setDisc(originalDiscs);
+        } else if (searchBarrDate1.length !== 4) {
+            setPromiseReturned(false);
+            return;
         }
     };
 
     useEffect(() =>{
+        setPromiseReturned(false);
         findDiscByDate1();
     }, [searchBarrDate1]);
 
     useEffect(() =>{
+        setPromiseReturned(false);
         findDiscByDate2();
     }, [searchBarrDate2]);
 
@@ -84,15 +94,10 @@ const SearchComponent = ({searchParam, searchBarr, setSearchBarr, setDisc, origi
     };
 
 
-    const onBarrChange = ({target}) => {
-        setDisc(originalDiscs);
-        setSearchBarr(target.value);
-    };
-
     const styleOfDiscParam = () => {
         return (<Form.Select
-            onChange={onBarrChange} 
-            aria-label="Default select example"
+            onChange={(({ target }) => setSearchBarr(target.value))} 
+            aria-label="Escolha"
         >
             <option value="">Open this select menu</option>
             <option value="vocal">Vocal</option>
@@ -102,7 +107,7 @@ const SearchComponent = ({searchParam, searchBarr, setSearchBarr, setDisc, origi
 
     const labelOfDiscParam = () => {
         return (<Form.Select
-            onChange={onBarrChange} 
+            onChange={(({ target }) => setSearchBarr(target.value))} 
             aria-label="Escolha a gravadora"
         >
             <option value="">Open this select menu</option>
@@ -116,7 +121,7 @@ const SearchComponent = ({searchParam, searchBarr, setSearchBarr, setDisc, origi
 
     const typeOfDiscParam = () => {
         return (<Form.Select
-            onChange={onBarrChange} 
+            onChange={(({ target }) => setSearchBarr(target.value))} 
             aria-label="Escolha o tipo de disco"
         >
             <option value="">Open this select menu</option>
@@ -125,6 +130,9 @@ const SearchComponent = ({searchParam, searchBarr, setSearchBarr, setDisc, origi
         </Form.Select>);
     };
 
+    useEffect(() => {
+        console.log(PromiseReturned);
+    }, [PromiseReturned]);
     
 
     const titleOfDiscParam = () => {
@@ -132,17 +140,19 @@ const SearchComponent = ({searchParam, searchBarr, setSearchBarr, setDisc, origi
             className='w-50'
             type="text"
             placeholder="Digite..." 
-            value={searchBarr} onChange={onBarrChange}
+            value={searchBarr} onChange={(({ target }) => setSearchBarr(target.value))}
         />);
     };
 
     
     SearchComponent.propTypes = {
         searchParam: PropTypes.string.isRequired,
+        PromiseReturned: PropTypes.bool.isRequired,
         searchBarr: PropTypes.string.isRequired,
-        originalDiscs: PropTypes.array.isRequired,
         setSearchBarr: PropTypes.func.isRequired,
-        setDisc: PropTypes.func.isRequired
+        setNewDiscs: PropTypes.func.isRequired,
+        onSearch: PropTypes.func.isRequired,
+        setPromiseReturned: PropTypes.func.isRequired
     };
 
     return (
@@ -156,8 +166,10 @@ const SearchComponent = ({searchParam, searchBarr, setSearchBarr, setDisc, origi
             {searchParam === 'Gravadora' && labelOfDiscParam() }
             {searchParam === 'Lancamento' && dateOfDiscParam() }
             <Button
-                className='brazilian_colors mx-4'
+                className='mx-4'
                 variant="danger"
+                onClick={onSearch}
+                disabled={!PromiseReturned}
             >
                         Pesquisar
             </Button>

@@ -1,62 +1,87 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Form, Col, Row } from 'react-bootstrap';
 import Context from '../../context/Context';
-import unidecode from 'unidecode';
 import SearchComponent from './searchComponent';
+import { getDiscsBySearch } from '../../services/BDsRequests';
 
 function SearchHeader() {
-    const { disc, setDisc, setPageStore } = useContext(Context);
-    const [originalDiscs, setOriginalDisks] = useState([]);
+    const { setPageStore, setLoading } = useContext(Context);
+    const [NewDiscs, setNewDiscs] = useState(null);
+    const [PromiseReturned, setPromiseReturned] = useState(false);
     const [searchParam, setSearchParam] = useState('title');
     const [searchBarr, setSearchBarr] = useState('');
     const [searchBarrControll, setSearchBarrControll] = useState(0);
+    let searchTimeControll = 0;
 
-    let alreadyRender = false;
+    useEffect(() => {
+        if (searchParam === 'musics' || searchParam === 'title' || searchParam === 'artist' || searchParam === 'produtor' ) {
+            if (searchBarr === '') {
+                return setPromiseReturned(false);
+            }
+        }
+    }, [searchBarr]);
+
+
+    const onSearch = () => {
+        if (!PromiseReturned && searchTimeControll <= 4000) {
+            setLoading(true);
+            console.log(searchTimeControll);
+            searchTimeControll += 1;
+            return onSearch();
+        }
+        searchTimeControll = 0;
+        console.log(NewDiscs);
+        setPromiseReturned(false);
+        return setLoading(false);
+    };
 
     const onChangeParams = ({ target }) => {
-        setDisc(originalDiscs);
         setSearchBarr('');
         setSearchParam(target.value);
     };
 
-    const findDiscBy = (() => {
-        if (searchBarr.length === 0 && alreadyRender) {
-            console.log('a');
-            setDisc(originalDiscs);
-            return;
-        }
-        alreadyRender = true;
+    const findDiscBy = ( async () => {
+        const params = {};
         setSearchBarrControll((prev) => prev + 1);
+        if (searchBarr === '') {
+            return setPromiseReturned(false);
+        }
         if (searchParam === 'title' || searchParam === 'artist') {
-            const similar = disc.filter(disc => unidecode(disc[searchParam].toLowerCase()).includes(unidecode(searchBarr.toLowerCase())));
-            setDisc(similar);
+            setPromiseReturned(false);
+            setNewDiscs(null);
+            params[searchParam] = searchBarr;
+            const newDiscs = await getDiscsBySearch(params);
+            setNewDiscs(newDiscs);
+            return setPromiseReturned(true);
+
         } else if (searchParam === 'Caracteristica' || searchParam === 'Formatos' || searchParam === 'Produtor' || searchParam === 'Gravadora') {
-            const similar = disc.filter(disc => unidecode(disc['details'][searchParam].toLowerCase()).includes(unidecode(searchBarr.toLowerCase())));
-            setDisc(similar);
-            console.log('a');
+            setPromiseReturned(false);
+            setNewDiscs(null);
+            params[`details.${searchParam}`] = searchBarr;
+            const newDiscs = await getDiscsBySearch(params);
+            setNewDiscs(newDiscs);
+            return setPromiseReturned(true);
         }
         else if (searchParam === 'musics') {
-            const similar = disc.filter(d => d.musics.map(m => unidecode(m)).filter(m => m.toLowerCase().includes(unidecode(searchBarr.toLowerCase()))).length > 0);
-            setDisc(similar);
-            console.log('a');
+            setPromiseReturned(false);
+            setNewDiscs(null);
+            params[searchParam] = searchBarr;
+            const newDiscs = await getDiscsBySearch(params);
+            setNewDiscs(newDiscs);
+            return setPromiseReturned(true);
         }
     });
 
     useEffect(() => {
-        if (!originalDiscs.length && disc.length > 0) {
-            return setOriginalDisks(disc);
-        } 
-        if (disc) {
-            findDiscBy();
-        }
-       
+        setPromiseReturned(false);
+        findDiscBy();
     }, [searchBarr]);
 
     useEffect(() => {
+        setPromiseReturned(false);
         setPageStore(1);
         if (searchBarr.length !== searchBarrControll && searchParam === 'title') {
             setSearchBarrControll(searchBarr.length);
-            setDisc(originalDiscs);
         }
     }, [searchBarrControll]);
 
@@ -80,7 +105,7 @@ function SearchHeader() {
                     </Form.Control>
                 </Col>
                 <Col className='d-flex justify-content-center' xs={5}>
-                    <SearchComponent setDisc={setDisc} originalDiscs={originalDiscs} searchParam={searchParam} searchBarr={ searchBarr } setSearchBarr={setSearchBarr} />
+                    <SearchComponent PromiseReturned={PromiseReturned} setPromiseReturned={setPromiseReturned} setNewDiscs={setNewDiscs} searchParam={searchParam} searchBarr={ searchBarr } setSearchBarr={setSearchBarr} onSearch={onSearch} />
                     
                 </Col>
                    
