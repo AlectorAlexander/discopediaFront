@@ -4,21 +4,24 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Provider from './context/Provider';
+import { Provider as Redux } from 'react-redux';
 import './index.css';
 import App from './App';
-import './styles/Carousel.sass';
 import './styles/styles.css';
+import store from './redux';
 
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <Router>
-        <Provider>
-            <React.StrictMode>
-                <App />
-            </React.StrictMode>
-        </Provider>
+    <Router> 
+        <Redux store={ store }>
+            <Provider>
+                <React.StrictMode>
+                    <App />
+                </React.StrictMode>
+            </Provider>
+        </Redux>
     </Router>,
 );
 

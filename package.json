@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@redux-devtools/extension": "^3.2.5",
     "@testing-library/jest-dom": "^5.16.5",
     "animate.css": "^4.1.1",
     "axios": "^1.2.3",
@@ -17,8 +18,10 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",
     "react-imask": "^6.4.3",
+    "react-redux": "^8.0.5",
     "react-router": "^6.6.2",
     "react-router-dom": "^6.6.2",
+    "redux": "^4.2.1",
     "unidecode": "^0.1.8",
     "web-vitals": "^3.1.1"
   },

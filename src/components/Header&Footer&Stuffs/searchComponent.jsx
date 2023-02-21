@@ -133,7 +133,6 @@ const SearchComponent = ({searchParam, PromiseReturned, searchBarr, setSearchBar
     };
 
     useEffect(() => {
-        console.log(PromiseReturned);
     }, [PromiseReturned]);
     
 
@@ -168,7 +167,7 @@ const SearchComponent = ({searchParam, PromiseReturned, searchBarr, setSearchBar
             {searchParam === 'Gravadora' && labelOfDiscParam() }
             {searchParam === 'Lancamento' && dateOfDiscParam() }
             <Button
-                className='mx-4'
+                className='mx-4 brazilian_colors'
                 variant="danger"
                 onClick={onSearch}
                 disabled={!PromiseReturned}

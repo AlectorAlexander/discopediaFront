@@ -3,6 +3,8 @@ import { Form, Col, Row } from 'react-bootstrap';
 import Context from '../../context/Context';
 import SearchComponent from './searchComponent';
 import { getDiscsBySearch } from '../../services/BDsRequests';
+import { User_did_search } from '../../redux/actions';
+import { useDispatch } from 'react-redux';
 
 function SearchHeader() {
     const { setPageStore, setLoading, setData } = useContext(Context);
@@ -12,6 +14,8 @@ function SearchHeader() {
     const [searchBarr, setSearchBarr] = useState('');
     const [searchBarrControll, setSearchBarrControll] = useState(0);
     let searchTimeControll = 0;
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (searchParam === 'musics' || searchParam === 'title' || searchParam === 'artist' || searchParam === 'produtor' ) {
@@ -32,9 +36,7 @@ function SearchHeader() {
         searchTimeControll = 0;
         setLoading(true);     
         setPromiseReturned(false);
-        console.log(NewDiscs);
         if (NewDiscs.length > 0 && NewDiscs.length < 400) {
-            console.log('ebtriy');
             const newCardsDiscs = [];
             for (let i = 0; i < NewDiscs.length; i += 9) {
                 const discsGroup = NewDiscs.slice(i, i + 9);
@@ -45,7 +47,8 @@ function SearchHeader() {
                 }
             }
             setData(newCardsDiscs);
-            console.log(newCardsDiscs);
+            dispatch(User_did_search(NewDiscs.length, searchParam, searchBarr));
+
         }
         return setLoading(false);     
     };
@@ -100,6 +103,8 @@ function SearchHeader() {
         }
     }, [searchBarrControll]);
 
+
+
     return (
         <Form className='p-5 d-flex justify-content-center'>
             
@@ -129,6 +134,14 @@ function SearchHeader() {
         </Form>
     );
 }
+
+/* const mapDispatchToProps = (dispatch) => {
+    return {
+        incrementWarning: (resultsNumber, params, searchTerm) => {
+            dispatch(User_did_search(resultsNumber, params, searchTerm));
+        }
+    };
+}; */
 
 
 export default SearchHeader;

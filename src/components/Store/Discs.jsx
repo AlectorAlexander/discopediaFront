@@ -1,11 +1,21 @@
 /* eslint-disable react/jsx-filename-extension */
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import Context from '../../context/Context';
+import { User_did_NOT_search } from '../../redux/actions';
 import Cards from './Cards';
 
 function Discs() {
     const {pageStore, setDetails, data, Loading } = useContext(Context);
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        return () => {
+            dispatch(User_did_NOT_search);
+        };
+    }, [dispatch]);
 
     const history = useNavigate();
 

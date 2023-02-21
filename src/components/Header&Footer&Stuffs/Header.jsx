@@ -15,12 +15,17 @@ function Header() {
 
     const request = async () => {
         const { data } = await getDiscs();
-        data.map( async ({ url_img, details }) => {
+        setImagesHeader([]);
+        let randomNumber = Math.floor(Math.random() * 10) + 1;
+        data.map(({ url_img, details }, i) => {
             const { Gravadora } = details;
             setLabel((prevLabel) => prevLabel.concat(Gravadora));
-            setImagesHeader((prevImages) => prevImages.concat(url_img));
+            if (randomNumber === i) {
+                setImagesHeader((prevImages) => prevImages.concat(url_img));
+                randomNumber += 12;
+            }
+
         });
-        setImagesHeader((prevImages) => prevImages.sort(() => Math.random() - 0.5));
         
         setLabel((prevLabel) => {
             for (let i = 0; i < prevLabel.length; i++) {

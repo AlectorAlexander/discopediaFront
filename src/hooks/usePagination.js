@@ -28,7 +28,7 @@ export default function usePaginationData() {
     }, [ActualPage]);
 
     useEffect(() => {
-        if (!Loading) {
+        if (!Loading && pageStore !== 1) {
             return window.scroll(0, 300);
         }
     }, [Loading]);
