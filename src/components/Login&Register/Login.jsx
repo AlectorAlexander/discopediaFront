@@ -2,7 +2,7 @@ import React, { useContext} from 'react';
 import validate from '../../services/validates';
 import { useNavigate } from 'react-router-dom';
 import { LoginFetch } from '../../services/BDsRequests';
-import { Form, Button, FormGroup } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import Context from '../../context/Context';
 
 function Login() {
@@ -47,22 +47,22 @@ function Login() {
     }
 
     return (
-        <div className='d-flex justify-content-center mt-5'>
+        <div className='d-flex mt-5'>
             
-            <FormGroup>
+            <form className='form-login'>
                 
-                <Form.Control
+                <input
                     placeholder="Email"
                     onChange={handleEmail}
                     type="email"
                 />
                
-                <Form.Control
+                <input
                     placeholder="Passoword"
                     onChange={handlePassword}
                     type="password"
                 />
-                <div className="buttons-login d-flex justify-content-around">
+                <div className="buttons-login d-flex flex-wrap justify-content-center">
                     <Button
                         type="button"
                         className="w-25 m-2"
@@ -76,7 +76,7 @@ function Login() {
                         type="button"
                         onClick={handleToRegister}
                     >
-          Ainda não tenho conta
+          Registrar
                     </Button>
                     {errHomeMessage && (
                         <span
@@ -86,7 +86,7 @@ function Login() {
                     )}
                     
                 </div>
-            </FormGroup>
+            </form>
         </div>
     );
 }

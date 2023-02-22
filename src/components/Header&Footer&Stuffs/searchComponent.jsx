@@ -76,7 +76,7 @@ const SearchComponent = ({searchParam, PromiseReturned, searchBarr, setSearchBar
 
     const dateOfDiscParam = () => {
         return (
-            <div className='d-flex'>
+            <div className='d-flex flex-wrap'>
                 <FormControl
                     className='w-50 me-1' 
                     type="number"
@@ -98,6 +98,7 @@ const SearchComponent = ({searchParam, PromiseReturned, searchBarr, setSearchBar
 
     const styleOfDiscParam = () => {
         return (<Form.Select
+            className='d-flex flex-wrap'
             onChange={(({ target }) => setSearchBarr(target.value))} 
             aria-label="Escolha"
         >
@@ -109,6 +110,7 @@ const SearchComponent = ({searchParam, PromiseReturned, searchBarr, setSearchBar
 
     const labelOfDiscParam = () => {
         return (<Form.Select
+            className='d-flex flex-wrap'
             onChange={(({ target }) => setSearchBarr(target.value))} 
             aria-label="Escolha a gravadora"
         >
@@ -123,6 +125,7 @@ const SearchComponent = ({searchParam, PromiseReturned, searchBarr, setSearchBar
 
     const typeOfDiscParam = () => {
         return (<Form.Select
+            className='d-flex flex-wrap'
             onChange={(({ target }) => setSearchBarr(target.value))} 
             aria-label="Escolha o tipo de disco"
         >
@@ -138,7 +141,7 @@ const SearchComponent = ({searchParam, PromiseReturned, searchBarr, setSearchBar
 
     const titleOfDiscParam = () => {
         return (<FormControl
-            className='w-50'
+            className='w-50 d-flex flex-wrap'
             type="text"
             placeholder="Digite..." 
             value={searchBarr} onChange={(({ target }) => setSearchBarr(target.value))}
@@ -157,7 +160,7 @@ const SearchComponent = ({searchParam, PromiseReturned, searchBarr, setSearchBar
     };
 
     return (
-        <div className='d-flex justify-content-center'>
+        <div className='d-flex flex-wrap justify-content-center'>
             {searchParam === 'title' && titleOfDiscParam()}
             {searchParam === 'Produtor' && titleOfDiscParam()}
             {searchParam === 'artist' && titleOfDiscParam()}

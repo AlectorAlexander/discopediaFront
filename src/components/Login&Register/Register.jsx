@@ -1,5 +1,5 @@
 import React, { useContext} from 'react';
-import { Form, Button, FormGroup } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Context from '../../context/Context';
 import { createUser } from '../../services/BDsRequests';
@@ -51,14 +51,14 @@ export default function Register() {
 
     return (
         <div className='d-flex justify-content-center mt-5'>
-            <FormGroup>
-                <Form.Control
+            <form className='form-login'>
+                <input
                     placeholder="Seu nome"
                     onChange={ handleChangeName }
                     type="text"
                     value={ name }
                 />
-                <Form.Control
+                <input
                     placeholder="Email"
                     data-testid="common_register__input-email"
                     onChange={ handleChangeEmail }
@@ -68,7 +68,7 @@ export default function Register() {
                 <Form.Text className="text-muted">
           Nós nunca iremos compartilhar seu email com ninguém.
                 </Form.Text>
-                <Form.Control
+                <input
                     placeholder="Password"
                     onChange={ handleChangePassword }
                     type="password"
@@ -90,7 +90,7 @@ export default function Register() {
                         </span>
                     )}
                 </div>
-            </FormGroup>
+            </form>
         </div>
     );
 }

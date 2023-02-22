@@ -87,8 +87,8 @@ function CarouselComponent() {
                     className="carousel-background"
                     style={{
                         backgroundImage: `url(${ImagesHeader[currentIndex]})`,
-                        animation: 'moveBackground 30s linear infinite',
-                        backgroundSize: '190%'
+                        animation: 'moveBackground 130s linear infinite',
+                        backgroundSize: '130%',
                     }}
                 >
                     {ImagesHeader.map((image, index) => (

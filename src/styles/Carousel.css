@@ -1,8 +1,5 @@
-@keyframes moveBackground {
-    from {
-        background-position: 0 0;
-    }
-    to {
-        background-position: 100% 0;
-    }
+.carousel-background {
+    backdrop-filter: blur(122px);
+    backdrop-filter: brightness(60%);
+    backdrop-filter: drop-shadow(4px 4px 10px blue);
 }

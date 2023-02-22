@@ -17,7 +17,6 @@ function PaginationLove () {
 
     const paginationUser = async () => {
         const alreadyClick = data[pageStore - 1] !== undefined;
-        console.log(data[pageStore - 1]);
         if (!alreadyClick) {
             setLoading(true);
             const { data } = await getDiscsForPaginations(pageStore, 9);
