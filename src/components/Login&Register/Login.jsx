@@ -47,7 +47,7 @@ function Login() {
     }
 
     return (
-        <div className='d-flex mt-5'>
+        <div>
             
             <form className='form-login'>
                 
@@ -65,14 +65,14 @@ function Login() {
                 <div className="buttons-login d-flex flex-wrap justify-content-center">
                     <Button
                         type="button"
-                        className="w-25 m-2"
+                        className="buttonstrap"
                         disabled={isButtonDisabled()}
                         onClick={handleLogin}
                     >
           LOGIN
                     </Button>
                     <Button
-                        className="w-75 m-2"
+                        className="buttonstrap"
                         type="button"
                         onClick={handleToRegister}
                     >

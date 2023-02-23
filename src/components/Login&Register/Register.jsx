@@ -16,6 +16,7 @@ export default function Register() {
         password,
         errHomeMessage, 
         setErrHomeMessage,
+        setPage,
         setPassword } = useContext(Context);
 
 
@@ -28,6 +29,11 @@ export default function Register() {
     || !validate.validatePassword(password)
     || !validate.validateName(name)
     );
+
+    function handleToRegister() {
+        setErrHomeMessage(null);
+        setPage('login');
+    }
 
     async function handleSubmitRegister() {
         setErrHomeMessage(null);
@@ -52,20 +58,20 @@ export default function Register() {
     return (
         <div className='d-flex justify-content-center mt-5'>
             <form className='form-login'>
-                <input
+                <Form.Control
                     placeholder="Seu nome"
                     onChange={ handleChangeName }
                     type="text"
                     value={ name }
                 />
-                <input
+                <Form.Control
                     placeholder="Email"
                     data-testid="common_register__input-email"
                     onChange={ handleChangeEmail }
                     type="email"
                     value={ email }
                 />
-                <Form.Text className="text-muted">
+                <Form.Text className="text-dark">
           Nós nunca iremos compartilhar seu email com ninguém.
                 </Form.Text>
                 <input
@@ -77,11 +83,18 @@ export default function Register() {
                 <div id="buttons-login">
                     <Button
                         type="button"
-                        className="m-3"
+                        className="buttonstrap"
                         onClick={ handleSubmitRegister }
                         disabled={ isButtonDisabled() }
                     >
           CADASTRAR
+                    </Button>
+                    <Button
+                        type="button"
+                        className="buttonstrap"
+                        onClick={handleToRegister}
+                    >
+          LOGIN
                     </Button>
                     {errHomeMessage && (
                         <span

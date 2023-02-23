@@ -4,6 +4,7 @@ import Context from '../context/Context';
 import Login from '../components/Login&Register/Login';
 import Register from '../components/Login&Register/Register';
 import { useNavigate } from 'react-router';
+import Logo from '../logo.png';
 import '../styles/home.css';
 
 function Home() {
@@ -30,14 +31,8 @@ function Home() {
     return (
         <div className="App login">
             <div className='card-login'>
+                <img className='logo' src={Logo} alt='logo' />
                 {rightComponent()}
-                <div className="drops">
-                    <div className="drop drop-1"></div>
-                    <div className="drop drop-2"></div>
-                    <div className="drop drop-3"></div>
-                    <div className="drop drop-4"></div>
-                    <div className="drop drop-5"></div>
-                </div>
             </div>
         </div>
     );

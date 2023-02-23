@@ -28,7 +28,7 @@ function MinhaEstante() {
     return (
         <div className="MinhaEstante">
             <Header />
-            {MyDiscs.length > 0 && <MyDiscsCheckout setMyDiscs={setMyDiscs} MyDiscs={ MyDiscs } />}
+            {MyDiscs.length > 0 ? <MyDiscsCheckout setMyDiscs={setMyDiscs} MyDiscs={ MyDiscs } /> : <div className='empty-space'>{''}</div>}
             <Footer />
         </div>
     );
