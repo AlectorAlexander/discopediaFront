@@ -1,13 +1,33 @@
 import axios from 'axios';
 
-const imageType = 'image/jpeg';
-
-
 const baseURL = 'http://localhost:3001/';
 
 const instance = axios.create({
     baseURL,
 });
+
+const { token } = JSON.parse(localStorage.getItem('user'));
+const config = {
+    headers: {
+        'Content-Type': 'application/json',
+        Authorization: token
+    }
+};
+
+export async function getDiscsUser(id) {
+    
+    const data = { id: id };
+    const response = await instance.post('user/disc', data, config)
+        .catch((error) => {
+            console.log(error.response.data);
+            const {message} = error.response.data;
+            if (message === 'token not found' || message === 'Expired or invalid token' || message === 'Token must be a valid token') {
+                console.log('fazer algo');
+            }
+            return error.response;
+        });
+    return response;
+}
 
 export async function LoginFetch(email, senha) {
     const response = await instance
@@ -20,6 +40,7 @@ export async function LoginFetch(email, senha) {
     if (response.data.token) {
         const { data } = response;
         const { token } = data;
+        console.log(token);
         instance.defaults.headers.Authorization = token;
         return response;
     }
@@ -44,9 +65,9 @@ export async function createUser( nome, email, senha ) {
 }
 
 export async function validateUser() {
-    const { token } = JSON.parse(localStorage.getItem('user'));
+    
     const response = await instance
-        .get('/login/validate', { headers: { 'Content-Type': imageType, Authorization: token } })
+        .get('/login/validate', { headers: { 'Content-Type': 'application/json', Authorization: token } })
         .catch((error) => {
             console.log(error);
             return error.response;
@@ -61,34 +82,26 @@ export async function validateUser() {
     return response;
 }
 
-export async function UpdateDocumentUser( id, document ) {
-    const response = await instance
-        .put(`users/${id}`, { id, document })
-        .catch((error) => {
-            console.log(error);
-            return error.response;
-        });
-
-    if (response.data.token) {
-        const { data } = response;
-        const { token } = data;
-        instance.defaults.headers.Authorization = token;
-        return response;
-    }
-    return response;
-}
 
 export async function UpdateDiscsUser( id, discId ) {
+    
+    const data = {
+        id: id,
+        diskId: discId
+    };
     const response = await instance
-        .put('user/disc', { id, diskId: discId })
+        .put('user/disc', data, config)
         .catch((error) => {
             console.log(error);
+            const {message} = error.response.data;
+            if (message === 'token not found' || message === 'Expired or invalid token' || message === 'Token must be a valid token') {
+                console.log('fazer algo');
+            }
             return error.response;
         });
 
     if (response.data.token) {
         const { data } = response;
-        const { token } = data;
         console.log(data);
         instance.defaults.headers.Authorization = token;
         return response;
@@ -97,12 +110,20 @@ export async function UpdateDiscsUser( id, discId ) {
 }
 
 export async function DeleteDiscsUser(discId) {
-    const { id } = JSON.parse(localStorage.getItem('user'));
+    
     const body = {id, diskId: discId};
+    const data = {
+        body
+    };
+    const { id } = JSON.parse(localStorage.getItem('user'));
     const response = await instance
-        .delete('user/disc', { data: body })
+        .delete('user/disc', data, config)
         .catch((error) => {
             console.log(error); 
+            const {message} = error.response.data;
+            if (message === 'token not found' || message === 'Expired or invalid token' || message === 'Token must be a valid token') {
+                console.log('fazer algo');
+            }
             return error.response;
         });
 
@@ -116,21 +137,32 @@ export async function DeleteDiscsUser(discId) {
 }
 
 export async function UpdateDisc( id, disco ) {
-    console.log(disco);
+    
+    const data = { ...disco };
     const response = await instance
-        .put(`disks/${id}`, { ...disco })
+        .put(`disks/${id}`, data, config)
         .catch((error) => {
             console.log(error);
+            const {message} = error.response.data;
+            if (message === 'token not found' || message === 'Expired or invalid token' || message === 'Token must be a valid token') {
+                console.log('fazer algo');
+            }
             return error.response;
         });
     return response;
 }
 
 export async function CreateDisc(disco ) {
+    
+    const data = { ...disco };
     const response = await instance
-        .post('disks/', { ...disco })
+        .post('disks/', data, config)
         .catch((error) => {
             console.log(error);
+            const {message} = error.response.data;
+            if (message === 'token not found' || message === 'Expired or invalid token' || message === 'Token must be a valid token') {
+                console.log('fazer algo');
+            }
             return error.response;
         });
     return response;
@@ -138,90 +170,102 @@ export async function CreateDisc(disco ) {
  
 
 export async function getDiscs() {
-    const { token } = JSON.parse(localStorage.getItem('user'));
+    
     const response = await instance
-        .get('disks', { headers: { 'Content-Type': imageType, Authorization: token } })
+        .get('disks', { headers: { 'Content-Type': 'application/json', Authorization: token } })
         .catch((error) => {
             console.log(error);
+            const {message} = error.response.data;
+            if (message === 'token not found' || message === 'Expired or invalid token' || message === 'Token must be a valid token') {
+                console.log('fazer algo');
+            }
             return error.response.error;
         });
     return response;
 }
 
 export async function getDiscsForPaginations(page, limit) {
+    
+    const data = { page, limit };
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: token
+        },
+    };
     const response = await instance
-        .post('/disks/pagination', { page, limit })
+        .post('/disks/pagination', data, config)
         .catch((error) => {
             console.log(error);
+            const {message} = error.response.data;
+            if (message === 'token not found' || message === 'Expired or invalid token' || message === 'Token must be a valid token') {
+                console.log('fazer algo');
+            }
             return error.response;
         });
     return response;
 }
 
 export async function getDiscsBySearch(params) {
+    
+    const data = { params };
     const response = await instance
-        .post('/disks/params', { params })
+        .post('/disks/params', data, config)
         .catch((error) => {
             console.log(error);
+            const {message} = error.response.data;
+            if (message === 'token not found' || message === 'Expired or invalid token' || message === 'Token must be a valid token') {
+                console.log('fazer algo');
+            }
             return error.response;
         });
     return response;
 }
 
-export async function getDiscsUser() {
-    const {  id } = JSON.parse(localStorage.getItem('user'));
-    const response = await instance
-        .post('user/disc', {id})
-        .catch((error) => {
-            console.log(error);
-            return error.response.error;
-        });
-    console.log(response);
-    return response;
-}
+
 
 
 
 export async function getDiscsById(id) {
-    const { token } = JSON.parse(localStorage.getItem('user'));
+    
     const response = await instance
-        .get(`disks/${id}`, { headers: { 'Content-Type': imageType, Authorization: token } })
+        .get(`disks/${id}`, { headers: { 'Content-Type': 'application/json', Authorization: token } })
         .catch((error) => {
-            console.log(error);
+            console.log(error.response.data);
+            const {message} = error.response.data;
+            if (message === 'token not found' || message === 'Expired or invalid token' || message === 'Token must be a valid token') {
+                console.log('fazer algo');
+            }
             return error.response.error;
         });
     return response;
 }
 
 export async function deleteDiscs(id) {
-    const { token } = JSON.parse(localStorage.getItem('user'));
+    
     const response = await instance
-        .delete(`disks/${id}`, { headers: { 'Content-Type': imageType, Authorization: token } })
+        .delete(`disks/${id}`, { headers: { 'Content-Type': 'application/json', Authorization: token } })
         .catch((error) => {
             console.log(error);
+            const {message} = error.response.data;
+            if (message === 'token not found' || message === 'Expired or invalid token' || message === 'Token must be a valid token') {
+                console.log('fazer algo');
+            }
             return error.response.error;
         });
     return response;
 }
 
-
-export async function getSalesById(id) {
-    const { token } = JSON.parse(localStorage.getItem('user'));
-    const response = await instance
-        .get(`sales/${id}`, { headers: { 'Content-Type': imageType, Authorization: token } })
-        .catch((error) => {
-            console.log(error);
-            return error.response.error;
-        });
-    return response;
-}
 
 export async function getUserId(email) {
-    const { token } = JSON.parse(localStorage.getItem('user'));
+    
+    const data = { email };
+
     const response = await instance
         .post(
             'email',
-            { email },
+            data,
+            config
         )
         .catch((error) => {
             console.log(error);
@@ -232,24 +276,4 @@ export async function getUserId(email) {
         return response;
     }
     return response.data.id || response;
-}
-
-
-
-export async function createSales(userId, cellId) {
-    const { token } = JSON.parse(localStorage.getItem('user'));
-    instance.defaults.headers.Authorization = token;
-    const body = {userId, cellId};
-    const response = await instance
-        .post(
-            'sales',
-            body,
-        )
-        .catch((error) => {
-            console.log(error);
-            console.log(body);
-            return error.response;
-        });
-
-    return response;
 }

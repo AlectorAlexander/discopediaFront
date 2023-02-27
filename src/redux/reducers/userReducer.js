@@ -1,5 +1,7 @@
+
 const INITIAL_STATE = {
     warning: '',
+    token: false
 };
 
 const userReducer = (state= INITIAL_STATE, action) => {
@@ -13,6 +15,16 @@ const userReducer = (state= INITIAL_STATE, action) => {
         return {
             ...state,
             warning: '' 
+        };
+    case 'token_found':
+        return {
+            ...state,
+            token: true
+        };
+    case 'token_not_found':
+        return {
+            ...state,
+            token: false 
         };
     default:
         return state;

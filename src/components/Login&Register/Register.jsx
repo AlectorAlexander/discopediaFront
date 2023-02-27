@@ -1,7 +1,9 @@
 import React, { useContext} from 'react';
 import { Button, Form } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Context from '../../context/Context';
+import { token_found } from '../../redux/actions';
 import { createUser } from '../../services/BDsRequests';
 import validate from '../../services/validates';
 
@@ -19,6 +21,7 @@ export default function Register() {
         setPage,
         setPassword } = useContext(Context);
 
+    const dispatch = useDispatch();
 
     const handleChangeName = ({target}) => setName(target.value);
     const handleChangeEmail = ({target}) => setEmail(target.value);
@@ -45,6 +48,7 @@ export default function Register() {
 
         const { status } = response;
         if (status === magicNumberSim) {
+            dispatch(token_found);
             return history('/store');
         }
 

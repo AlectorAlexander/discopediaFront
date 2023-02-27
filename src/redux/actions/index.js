@@ -17,3 +17,7 @@ export const User_did_search = (resultsNumber, param, searchTerm) => ({
 export const User_did_NOT_search = ({
     type: 'User_did_NOT_search'
 });
+
+export const token_found = ({type: 'token_found'});
+
+export const token_not_found = ({type: 'token_not_found'});

@@ -4,6 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { LoginFetch } from '../../services/BDsRequests';
 import { Button } from 'react-bootstrap';
 import Context from '../../context/Context';
+import { useDispatch } from 'react-redux';
+import { token_found } from '../../redux/actions';
+
 
 function Login() {
     const { 
@@ -15,6 +18,7 @@ function Login() {
         setPassword,
         setPage } = useContext(Context);
     const history = useNavigate();
+    const dispatch = useDispatch();
 
 
     const handleEmail = ({ target }) => setEmail(target.value);
@@ -35,6 +39,7 @@ function Login() {
         const { status } = response;
 
         if (status === magicNumberSim) {
+            dispatch(token_found);
             return history('/store');
         }
 

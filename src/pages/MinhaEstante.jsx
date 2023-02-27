@@ -12,7 +12,8 @@ function MinhaEstante() {
     const request = async () => {
         const discase = JSON.parse(localStorage.getItem('discase'));
         if (!discase) {
-            const response = await getDiscsUser();
+            const {  id } = JSON.parse(localStorage.getItem('user'));
+            const response = await getDiscsUser(id);
             if (response.status === 200) {
                 setMyDiscs(response.data);
                 return localStorage.setItem('discase', JSON.stringify([...response.data]));
@@ -22,13 +23,14 @@ function MinhaEstante() {
         
     };
     useEffect(() => {
+        console.log('aqui');
         request();
-    }, [MyDiscs]);
+    }, []);
 
     return (
         <div className="MinhaEstante">
             <Header />
-            {MyDiscs.length > 0 ? <MyDiscsCheckout setMyDiscs={setMyDiscs} MyDiscs={ MyDiscs } /> : <div className='empty-space'>{''}</div>}
+            {MyDiscs && MyDiscs.length > 0 ? <MyDiscsCheckout setMyDiscs={setMyDiscs} MyDiscs={ MyDiscs } /> : <div className='empty-space'>{''}</div>}
             <Footer />
         </div>
     );

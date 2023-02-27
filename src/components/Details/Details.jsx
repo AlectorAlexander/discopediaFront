@@ -23,8 +23,10 @@ function Details() {
     const seeTheDiscs = () => history('/store');
 
     const addItemToBD = async () => {
+        console.log('chama');
         const { id: userId } = JSON.parse(localStorage.getItem('user'));
         const response = await UpdateDiscsUser(userId, id);
+        console.log(response);
         if (response && response.status === 409) {
             const newElementCart = JSON.stringify([Details]);
             localStorage.setItem('discase', newElementCart);
@@ -88,7 +90,7 @@ function Details() {
         return (<Modal show={showDontHave} onHide={handleCloseDontHave}>
             <Modal.Header closeButton>
             </Modal.Header>
-            <Modal.Body>Disco adicionado na estante!</Modal.Body>
+            <Modal.Body>Novo disco add!</Modal.Body>
             <Modal.Footer>
                 <Button variant="primary" onClick={handleCloseDontHave}>
                         OK
