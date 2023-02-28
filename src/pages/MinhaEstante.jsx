@@ -1,12 +1,35 @@
 /* eslint-disable react/jsx-filename-extension */
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Footer from '../components/Header&Footer&Stuffs/Footer';
 import Header from '../components/Header&Footer&Stuffs/Header';
 import MyDiscsCheckout from '../components/Details/pedidos';
 import { getDiscsUser } from '../services/BDsRequests';
+import Context from '../context/Context';
+import { useNavigate } from 'react-router';
+import { useSelector } from 'react-redux';
 
 function MinhaEstante() {
     const [MyDiscs, setMyDiscs] = useState([]);
+    const {setPage} = useContext(Context);
+
+    const history = useNavigate();
+    const Logout = () => {
+        setPage('login');
+        localStorage.clear();
+        history('/');
+    };
+
+    const no_token = useSelector(state => {
+        return state.userReducer.no_token;
+    });
+
+    useEffect(() => {
+        if (no_token) {
+            return Logout;
+        }
+
+    }, [no_token]);
+
 
 
     const request = async () => {

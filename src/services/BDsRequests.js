@@ -1,4 +1,6 @@
 import axios from 'axios';
+import store from '../redux';
+import { token_not_found } from '../redux/actions';
 
 const baseURL = 'http://localhost:3001/';
 
@@ -6,15 +8,16 @@ const instance = axios.create({
     baseURL,
 });
 
-const { token } = JSON.parse(localStorage.getItem('user'));
-const config = {
-    headers: {
-        'Content-Type': 'application/json',
-        Authorization: token
-    }
-};
+
 
 export async function getDiscsUser(id) {
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: token
+        }
+    };
     
     const data = { id: id };
     const response = await instance.post('user/disc', data, config)
@@ -22,7 +25,7 @@ export async function getDiscsUser(id) {
             console.log(error.response.data);
             const {message} = error.response.data;
             if (message === 'token not found' || message === 'Expired or invalid token' || message === 'Token must be a valid token') {
-                console.log('fazer algo');
+                store.dispatch(token_not_found);
             }
             return error.response;
         });
@@ -65,7 +68,7 @@ export async function createUser( nome, email, senha ) {
 }
 
 export async function validateUser() {
-    
+    const { token } = JSON.parse(localStorage.getItem('user'));
     const response = await instance
         .get('/login/validate', { headers: { 'Content-Type': 'application/json', Authorization: token } })
         .catch((error) => {
@@ -84,6 +87,13 @@ export async function validateUser() {
 
 
 export async function UpdateDiscsUser( id, discId ) {
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: token
+        }
+    };
     
     const data = {
         id: id,
@@ -95,7 +105,7 @@ export async function UpdateDiscsUser( id, discId ) {
             console.log(error);
             const {message} = error.response.data;
             if (message === 'token not found' || message === 'Expired or invalid token' || message === 'Token must be a valid token') {
-                console.log('fazer algo');
+                store.dispatch(token_not_found);
             }
             return error.response;
         });
@@ -110,6 +120,13 @@ export async function UpdateDiscsUser( id, discId ) {
 }
 
 export async function DeleteDiscsUser(discId) {
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: token
+        }
+    };
     
     const body = {id, diskId: discId};
     const data = {
@@ -122,7 +139,7 @@ export async function DeleteDiscsUser(discId) {
             console.log(error); 
             const {message} = error.response.data;
             if (message === 'token not found' || message === 'Expired or invalid token' || message === 'Token must be a valid token') {
-                console.log('fazer algo');
+                store.dispatch(token_not_found);
             }
             return error.response;
         });
@@ -138,6 +155,13 @@ export async function DeleteDiscsUser(discId) {
 
 export async function UpdateDisc( id, disco ) {
     
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: token
+        }
+    };
     const data = { ...disco };
     const response = await instance
         .put(`disks/${id}`, data, config)
@@ -145,7 +169,7 @@ export async function UpdateDisc( id, disco ) {
             console.log(error);
             const {message} = error.response.data;
             if (message === 'token not found' || message === 'Expired or invalid token' || message === 'Token must be a valid token') {
-                console.log('fazer algo');
+                store.dispatch(token_not_found);
             }
             return error.response;
         });
@@ -153,6 +177,13 @@ export async function UpdateDisc( id, disco ) {
 }
 
 export async function CreateDisc(disco ) {
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: token
+        }
+    };
     
     const data = { ...disco };
     const response = await instance
@@ -161,7 +192,7 @@ export async function CreateDisc(disco ) {
             console.log(error);
             const {message} = error.response.data;
             if (message === 'token not found' || message === 'Expired or invalid token' || message === 'Token must be a valid token') {
-                console.log('fazer algo');
+                store.dispatch(token_not_found);
             }
             return error.response;
         });
@@ -170,14 +201,14 @@ export async function CreateDisc(disco ) {
  
 
 export async function getDiscs() {
-    
+    const { token } = JSON.parse(localStorage.getItem('user'));
     const response = await instance
         .get('disks', { headers: { 'Content-Type': 'application/json', Authorization: token } })
         .catch((error) => {
             console.log(error);
             const {message} = error.response.data;
             if (message === 'token not found' || message === 'Expired or invalid token' || message === 'Token must be a valid token') {
-                console.log('fazer algo');
+                store.dispatch(token_not_found);
             }
             return error.response.error;
         });
@@ -187,11 +218,12 @@ export async function getDiscs() {
 export async function getDiscsForPaginations(page, limit) {
     
     const data = { page, limit };
+    const { token } = JSON.parse(localStorage.getItem('user'));
     const config = {
         headers: {
             'Content-Type': 'application/json',
             Authorization: token
-        },
+        }
     };
     const response = await instance
         .post('/disks/pagination', data, config)
@@ -199,7 +231,7 @@ export async function getDiscsForPaginations(page, limit) {
             console.log(error);
             const {message} = error.response.data;
             if (message === 'token not found' || message === 'Expired or invalid token' || message === 'Token must be a valid token') {
-                console.log('fazer algo');
+                store.dispatch(token_not_found);
             }
             return error.response;
         });
@@ -207,6 +239,13 @@ export async function getDiscsForPaginations(page, limit) {
 }
 
 export async function getDiscsBySearch(params) {
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: token
+        }
+    };
     
     const data = { params };
     const response = await instance
@@ -215,7 +254,7 @@ export async function getDiscsBySearch(params) {
             console.log(error);
             const {message} = error.response.data;
             if (message === 'token not found' || message === 'Expired or invalid token' || message === 'Token must be a valid token') {
-                console.log('fazer algo');
+                store.dispatch(token_not_found);
             }
             return error.response;
         });
@@ -227,14 +266,14 @@ export async function getDiscsBySearch(params) {
 
 
 export async function getDiscsById(id) {
-    
+    const { token } = JSON.parse(localStorage.getItem('user'));
     const response = await instance
         .get(`disks/${id}`, { headers: { 'Content-Type': 'application/json', Authorization: token } })
         .catch((error) => {
             console.log(error.response.data);
             const {message} = error.response.data;
             if (message === 'token not found' || message === 'Expired or invalid token' || message === 'Token must be a valid token') {
-                console.log('fazer algo');
+                store.dispatch(token_not_found);
             }
             return error.response.error;
         });
@@ -242,14 +281,14 @@ export async function getDiscsById(id) {
 }
 
 export async function deleteDiscs(id) {
-    
+    const { token } = JSON.parse(localStorage.getItem('user'));    
     const response = await instance
         .delete(`disks/${id}`, { headers: { 'Content-Type': 'application/json', Authorization: token } })
         .catch((error) => {
             console.log(error);
             const {message} = error.response.data;
             if (message === 'token not found' || message === 'Expired or invalid token' || message === 'Token must be a valid token') {
-                console.log('fazer algo');
+                store.dispatch(token_not_found);
             }
             return error.response.error;
         });
@@ -258,6 +297,13 @@ export async function deleteDiscs(id) {
 
 
 export async function getUserId(email) {
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: token
+        }
+    };
     
     const data = { email };
 
