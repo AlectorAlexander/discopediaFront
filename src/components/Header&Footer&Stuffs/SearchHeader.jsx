@@ -17,6 +17,7 @@ function SearchHeader() {
 
     const dispatch = useDispatch();
 
+
     useEffect(() => {
         if (searchParam === 'musics' || searchParam === 'title' || searchParam === 'artist' || searchParam === 'produtor' ) {
             if (searchBarr === '') {
@@ -91,8 +92,12 @@ function SearchHeader() {
     });
 
     useEffect(() => {
-        setPromiseReturned(false);
-        findDiscBy();
+        if (searchParam !== 'Lancamento') {
+            setPromiseReturned(false);
+            findDiscBy();
+        } else {
+            setPageStore(1);
+        }
     }, [searchBarr]);
 
     useEffect(() => {
@@ -135,13 +140,6 @@ function SearchHeader() {
     );
 }
 
-/* const mapDispatchToProps = (dispatch) => {
-    return {
-        incrementWarning: (resultsNumber, params, searchTerm) => {
-            dispatch(User_did_search(resultsNumber, params, searchTerm));
-        }
-    };
-}; */
 
 
 export default SearchHeader;

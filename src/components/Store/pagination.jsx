@@ -20,7 +20,6 @@ function PaginationLove () {
         if (!alreadyClick) {
             setLoading(true);
             const { data } = await getDiscsForPaginations(pageStore, 9);
-            console.log(data);
             setActualPage(data);
             setPagesClicked((prev) => prev.concat(pageStore));
             if (!disc || disc.length < 1) {

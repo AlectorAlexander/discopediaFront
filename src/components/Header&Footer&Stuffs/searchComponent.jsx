@@ -25,10 +25,12 @@ const SearchComponent = ({searchParam, PromiseReturned, searchBarr, setSearchBar
                 
                 const { data } = await getDiscsBySearch(params);
                 setNewDiscs(data);
-                return setPromiseReturned(true);
+                setPromiseReturned(true);
+                return setSearchBarr(`De ${searchBarrDate1} até ${secondDate}`);
             } else {
                 searchBarrDate1('');
                 searchBarrDate2('');
+                setSearchBarr('');
                 return;
             }
         } else if (searchBarrDate1.length !== 4) {
@@ -53,6 +55,7 @@ const SearchComponent = ({searchParam, PromiseReturned, searchBarr, setSearchBar
                 
                 const { data } = await getDiscsBySearch(params);
                 setNewDiscs(data);
+                setSearchBarr(`De ${firstDate} até ${searchBarrDate2}`);
                 return setPromiseReturned(true);
             } else {
                 setPromiseReturned(false);
@@ -134,9 +137,6 @@ const SearchComponent = ({searchParam, PromiseReturned, searchBarr, setSearchBar
             <option value="CD">CD</option>
         </Form.Select>);
     };
-
-    useEffect(() => {
-    }, [PromiseReturned]);
     
 
     const titleOfDiscParam = () => {

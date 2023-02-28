@@ -43,7 +43,6 @@ export async function LoginFetch(email, senha) {
     if (response.data.token) {
         const { data } = response;
         const { token } = data;
-        console.log(token);
         instance.defaults.headers.Authorization = token;
         return response;
     }

@@ -55,9 +55,13 @@ function Header() {
         history('/');
     };
 
+    const Discase = () => {
+        history('/discase');
+    };
+
     const renderTheRightHeader = !admin ? (
         <Nav className="me-auto">
-            <Nav.Link style={{  }} href="/discase">Minha Estante</Nav.Link>
+            <Nav.Link onClick={Discase}>Minha Estante</Nav.Link>
         </Nav>
     ) : (
         <Nav className="me-auto">
