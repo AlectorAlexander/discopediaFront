@@ -6,11 +6,13 @@ import MyDiscsCheckout from '../components/Details/pedidos';
 import { getDiscsUser } from '../services/BDsRequests';
 import Context from '../context/Context';
 import { useNavigate } from 'react-router';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { token_found } from '../redux/actions';
 
 function MinhaEstante() {
     const [MyDiscs, setMyDiscs] = useState([]);
     const {setPage} = useContext(Context);
+    const dispatch = useDispatch();
 
     const history = useNavigate();
     const Logout = () => {
@@ -25,9 +27,13 @@ function MinhaEstante() {
 
     useEffect(() => {
         if (no_token) {
-            return Logout;
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (user.token) {
+                dispatch(token_found);
+            } else {
+                return Logout;
+            }
         }
-
     }, [no_token]);
 
 
@@ -46,7 +52,6 @@ function MinhaEstante() {
         
     };
     useEffect(() => {
-        console.log('aqui');
         request();
     }, []);
 

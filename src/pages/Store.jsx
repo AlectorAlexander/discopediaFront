@@ -6,11 +6,14 @@ import Context from '../context/Context';
 import SearchHeader from '../components/Header&Footer&Stuffs/SearchHeader';
 import '../styles/Store.css';
 import PaginationLove from '../components/Store/pagination';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
+import { token_found } from '../redux/actions';
 
 function Store() {
     const {setPage, disc } = useContext(Context);
+
+    const dispatch = useDispatch();
 
     const history = useNavigate();
     const Logout = () => {
@@ -25,9 +28,13 @@ function Store() {
 
     useEffect(() => {
         if (no_token) {
-            return Logout;
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (user.token) {
+                dispatch(token_found);
+            } else {
+                return Logout;
+            }
         }
-
     }, [no_token]);
 
 

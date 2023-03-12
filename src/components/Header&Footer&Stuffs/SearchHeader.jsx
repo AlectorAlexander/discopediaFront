@@ -3,15 +3,16 @@ import { Form, Col, Row } from 'react-bootstrap';
 import Context from '../../context/Context';
 import SearchComponent from './searchComponent';
 import { getDiscsBySearch } from '../../services/BDsRequests';
-import { User_did_search } from '../../redux/actions';
+import { not_found_data, User_did_search } from '../../redux/actions';
 import { useDispatch } from 'react-redux';
 
 function SearchHeader() {
-    const { setPageStore, setLoading, setData } = useContext(Context);
+    const { setPageStore, setLoading, setData, setPagesLenght } = useContext(Context);
     const [NewDiscs, setNewDiscs] = useState(null);
     const [PromiseReturned, setPromiseReturned] = useState(false);
     const [searchParam, setSearchParam] = useState('title');
     const [searchBarr, setSearchBarr] = useState('');
+    const [searchTerm, setSearchTerm] = useState('');
     const [searchBarrControll, setSearchBarrControll] = useState(0);
     let searchTimeControll = 0;
 
@@ -37,7 +38,11 @@ function SearchHeader() {
         searchTimeControll = 0;
         setLoading(true);     
         setPromiseReturned(false);
-        if (NewDiscs.length > 0 && NewDiscs.length < 400) {
+        if (NewDiscs.length === 0) {
+            setPagesLenght(1);
+            return dispatch(not_found_data);
+        }
+        if (NewDiscs.length < 400) {
             const newCardsDiscs = [];
             for (let i = 0; i < NewDiscs.length; i += 9) {
                 const discsGroup = NewDiscs.slice(i, i + 9);
@@ -68,7 +73,7 @@ function SearchHeader() {
         if (searchParam === 'title' || searchParam === 'artist') {
             setPromiseReturned(false);
             setNewDiscs(null);
-            params[searchParam] = searchBarr;
+            params[searchParam] = searchTerm;
             const { data } = await getDiscsBySearch(params);
             setNewDiscs(data);
             return setPromiseReturned(true);
@@ -76,7 +81,7 @@ function SearchHeader() {
         } else if (searchParam === 'Caracteristica' || searchParam === 'Formatos' || searchParam === 'Produtor' || searchParam === 'Gravadora') {
             setPromiseReturned(false);
             setNewDiscs(null);
-            params[`details.${searchParam}`] = searchBarr;
+            params[`details.${searchParam}`] = searchTerm;
             const { data } = await getDiscsBySearch(params);
             setNewDiscs(data);
             return setPromiseReturned(true);
@@ -84,23 +89,44 @@ function SearchHeader() {
         else if (searchParam === 'musics') {
             setPromiseReturned(false);
             setNewDiscs(null);
-            params[searchParam] = searchBarr;
+            params[searchParam] = searchTerm;
             const { data } = await getDiscsBySearch(params);
             setNewDiscs(data);
             return setPromiseReturned(true);
         }
     });
 
+    let timer;
+
+    const handleChange = () => {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+            if (searchParam !== 'Lancamento') {
+                setPromiseReturned(false);
+                setSearchTerm(searchBarr);
+            } else {
+                console.log('chamou por alguma razão');
+                setSearchBarr('');
+                setPageStore(1);
+            }
+        }, 500);
+    };
+
     useEffect(() => {
-        if (searchParam !== 'Lancamento') {
-            setPromiseReturned(false);
-            findDiscBy();
-        } else {
-            setPageStore(1);
-        }
+        handleChange();
     }, [searchBarr]);
 
     useEffect(() => {
+        if (searchTerm === searchBarr) {
+            findDiscBy();
+            setSearchTerm('');
+        }
+    }, [searchTerm]);
+    
+
+
+    useEffect(() => {
+        console.log('problem');
         setPromiseReturned(false);
         setPageStore(1);
         if (searchBarr.length !== searchBarrControll && searchParam === 'title') {
@@ -111,14 +137,14 @@ function SearchHeader() {
 
 
     return (
-        <Form className='p-5 d-flex justify-content-center'>
+        <Form className='search-header'>
             
-            <Row className='d-flex justify-content-center w-75'>
+            <Row className='select-choice'>
                 <Col xs={3}>
                     <Form.Label>Pesquisar por:</Form.Label>
                 </Col>
                 <Col xs={3}>
-                    <Form.Control value={searchParam} onChange={onChangeParams} as="select">
+                    <Form.Control className="input-search" value={searchParam} onChange={onChangeParams} as="select">
                         <option value="title">Título</option>
                         <option value="Produtor">Produtor</option>
                         <option value="Lancamento">Lançado em</option>
@@ -131,7 +157,6 @@ function SearchHeader() {
                 </Col>
                 <Col className='d-flex justify-content-center' xs={5}>
                     <SearchComponent PromiseReturned={PromiseReturned} setPromiseReturned={setPromiseReturned} setNewDiscs={setNewDiscs} searchParam={searchParam} searchBarr={ searchBarr } setSearchBarr={setSearchBarr} onSearch={onSearch} />
-                    
                 </Col>
                    
             </Row>

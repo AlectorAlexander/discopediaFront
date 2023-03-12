@@ -25,8 +25,8 @@ const SearchComponent = ({searchParam, PromiseReturned, searchBarr, setSearchBar
                 
                 const { data } = await getDiscsBySearch(params);
                 setNewDiscs(data);
-                setPromiseReturned(true);
-                return setSearchBarr(`De ${searchBarrDate1} até ${secondDate}`);
+                setSearchBarr(`De ${searchBarrDate1} até ${secondDate}`);
+                return setPromiseReturned(true);
             } else {
                 searchBarrDate1('');
                 searchBarrDate2('');
@@ -79,16 +79,14 @@ const SearchComponent = ({searchParam, PromiseReturned, searchBarr, setSearchBar
 
     const dateOfDiscParam = () => {
         return (
-            <div className='d-flex flex-wrap'>
+            <div className='lancamento-inputs'>
                 <FormControl
-                    className='w-50 me-1' 
                     type="number"
                     max='4'
                     placeholder="Do ano" 
                     value={searchBarrDate1} onChange={({target}) => setsearchBarrDate1(target.value)}
                 />
                 <FormControl
-                    className='w-50 ms-1' 
                     type="number"
                     maxLength={4}
                     placeholder="Até" 
@@ -113,11 +111,11 @@ const SearchComponent = ({searchParam, PromiseReturned, searchBarr, setSearchBar
 
     const labelOfDiscParam = () => {
         return (<Form.Select
-            className='d-flex flex-wrap'
+            className='select-choice'
             onChange={(({ target }) => setSearchBarr(target.value))} 
             aria-label="Escolha a gravadora"
         >
-            <option value="">Open this select menu</option>
+            <option value="">Escolha a gravadora</option>
             {Label.map((gravadora, i) => {
                 return (
                     <option key={i} value={gravadora}>{gravadora}</option>
@@ -128,7 +126,7 @@ const SearchComponent = ({searchParam, PromiseReturned, searchBarr, setSearchBar
 
     const typeOfDiscParam = () => {
         return (<Form.Select
-            className='d-flex flex-wrap'
+            className='input-search'
             onChange={(({ target }) => setSearchBarr(target.value))} 
             aria-label="Escolha o tipo de disco"
         >
@@ -160,7 +158,7 @@ const SearchComponent = ({searchParam, PromiseReturned, searchBarr, setSearchBar
     };
 
     return (
-        <div className='d-flex flex-wrap justify-content-center'>
+        <div className='search-component'>
             {searchParam === 'title' && titleOfDiscParam()}
             {searchParam === 'Produtor' && titleOfDiscParam()}
             {searchParam === 'artist' && titleOfDiscParam()}

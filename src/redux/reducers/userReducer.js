@@ -11,6 +11,11 @@ const userReducer = (state= INITIAL_STATE, action) => {
             ...state,
             warning: action.message 
         };
+    case 'not_found_data':
+        return {
+            ...state,
+            warning: action.message 
+        };
     case 'User_did_NOT_search':
         return {
             ...state,
