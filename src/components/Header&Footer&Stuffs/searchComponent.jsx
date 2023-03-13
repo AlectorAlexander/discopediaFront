@@ -99,11 +99,11 @@ const SearchComponent = ({searchParam, PromiseReturned, searchBarr, setSearchBar
 
     const styleOfDiscParam = () => {
         return (<Form.Select
-            className='d-flex flex-wrap'
+            className='d-flex flex-wrap label-choice'
             onChange={(({ target }) => setSearchBarr(target.value))} 
             aria-label="Escolha"
         >
-            <option value="">Open this select menu</option>
+            <option value="">Escolha</option>
             <option value="vocal">Vocal</option>
             <option value="instrumental">Instrumental</option>
         </Form.Select>);
@@ -111,7 +111,7 @@ const SearchComponent = ({searchParam, PromiseReturned, searchBarr, setSearchBar
 
     const labelOfDiscParam = () => {
         return (<Form.Select
-            className='select-choice'
+            className='label-choice'
             onChange={(({ target }) => setSearchBarr(target.value))} 
             aria-label="Escolha a gravadora"
         >
@@ -126,7 +126,7 @@ const SearchComponent = ({searchParam, PromiseReturned, searchBarr, setSearchBar
 
     const typeOfDiscParam = () => {
         return (<Form.Select
-            className='input-search'
+            className='input-search label-choice'
             onChange={(({ target }) => setSearchBarr(target.value))} 
             aria-label="Escolha o tipo de disco"
         >

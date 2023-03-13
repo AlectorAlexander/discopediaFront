@@ -22,6 +22,16 @@
   }
 }
 
+.button-logout {
+  max-width: 18%;
+  max-height: 6vw;
+  font-size: 12px;
+  font-weight: bolder;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .search-component {
   display: flex;
   flex-wrap: wrap;
@@ -60,7 +70,13 @@
 display: flex;
 justify-content: center;
 align-items:flex-start;
+max-width: 99%;
 }
+
+.label-choice {
+  margin: 0 5vw;
+  width: 20vw;
+  }
 
 .login {
     display: flex;
@@ -81,7 +97,6 @@ align-items:flex-start;
     flex-wrap: wrap;
     align-items: center;
     height: 80vh;
-    width: 70%;
     max-width: 350px;
     padding: 70px 90px 70px 90px;
     background-color: rgba(250, 235, 215, 0.212);
@@ -178,6 +193,48 @@ align-items:flex-start;
     100% {
       transform: rotate(360deg);
     }
+  }
+
+  .search-component {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  
+  .search-header {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 52px 0;
+  }
+  
+  .input-search {
+    min-width: 2vw;
+  }
+  
+  .lancamento-inputs {
+    margin: 0 0 0 6px;
+    display: flex;
+  }
+  
+  
+  .lancamento-inputs input {
+    margin: 0 0 0 6px;
+  }
+  
+  .select-choice {
+  display: flex;
+  justify-content: center;
+  align-items:flex-start;
+  max-width: 99%;
+  }
+  
+  .label-choice {
+    margin: 0 0 0 5vw;
+    width: 20vw;
   }
   
   .login {

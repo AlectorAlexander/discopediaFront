@@ -93,7 +93,7 @@ function Header() {
                 <Container>
                     <Navbar.Brand style={{ cursor: 'pointer' }} onClick={() => history('/store')}>Home</Navbar.Brand>
                     {renderTheRightHeader}
-                    <Button variant='danger' className='brazilian_colors' onClick={ Logout }>Logout</Button>
+                    <Button variant='danger' className='button-logout brazilian_colors' onClick={ Logout }>Logout</Button>
                 </Container>
             </Navbar>
         </div>

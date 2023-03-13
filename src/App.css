@@ -1,10 +1,4 @@
-body {
-  margin: 0
-}
 
-.App {
-  text-align: center;
-}
 
 .empty-space {
   min-height: 40vh;
@@ -72,4 +66,16 @@ body {
   to {
     transform: rotate(360deg);
   }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+
+.App {
+  text-align: center;
+  width: 100%;
 }
