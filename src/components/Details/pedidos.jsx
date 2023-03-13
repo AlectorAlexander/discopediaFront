@@ -43,18 +43,18 @@ function MyDiscsCheckout({ MyDiscs, setMyDiscs }) {
                             key={ i }
                         >
                             <tr>
-                                <td className='td-shit'
+                                <td className='td-shit td1'
                                 >
                                     { title }
 
                                 </td>
-                                <td className='td-shit'
+                                <td className='td-shit td2'
                                 >
-                                    { artist }
+                                    <p>{ artist }</p>
 
                                 </td>
                                 
-                                <td className='td-shit'
+                                <td className='td-shit td3'
                                 >
                                     { Lancamento }
 
