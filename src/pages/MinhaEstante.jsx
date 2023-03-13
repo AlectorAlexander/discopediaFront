@@ -8,6 +8,7 @@ import Context from '../context/Context';
 import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { token_found } from '../redux/actions';
+import '../styles/MinhaEstantes.css';
 
 function MinhaEstante() {
     const [MyDiscs, setMyDiscs] = useState([]);

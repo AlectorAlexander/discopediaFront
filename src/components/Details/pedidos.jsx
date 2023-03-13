@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Table } from 'react-bootstrap';
 import MyRequestsModal from '../../hooks/Modals';
+import '../../styles/MinhaEstantes.css';
 
 function MyDiscsCheckout({ MyDiscs, setMyDiscs }) {
     const [id, setId] = useState('');
@@ -22,16 +23,16 @@ function MyDiscsCheckout({ MyDiscs, setMyDiscs }) {
     return(
         <div  className="MyDiscs d-flex flex-wrap justify-content-around container-fluid">
             <MyRequestsModal show={ show } setMyDiscs={setMyDiscs} setShow={ setShow } id={id} />
-            <Table className="mt-5">
+            <Table className="tr-shit">
                 <thead>
-                    <tr>
-                        <th>Disco</th>
-                        <th>Artista</th>
-                        <th>Data de Lançamento</th>
-                        <th>Formatos</th>
-                        <th>Quantidade de Músicas</th>
-                        <th>Gerenciar</th>
-                        <th>Ouvir</th>
+                    <tr className=''>
+                        <th className='th-shit'>Disco</th>
+                        <th className='th-shit'>Artista</th>
+                        <th className='th-shit th1'>Data de Lançamento</th>
+                        <th className='th-shit  th2'>Formatos</th>
+                        <th className='th-shit th3'>Quantidade de Músicas</th>
+                        <th className='th-shit'>Gerenciar</th>
+                        <th className='th-shit'>Ouvir</th>
                     </tr>
                 </thead>
                 {MyDiscs && MyDiscs.length > 0 && MyDiscs.map((product, i) => {
@@ -42,37 +43,37 @@ function MyDiscsCheckout({ MyDiscs, setMyDiscs }) {
                             key={ i }
                         >
                             <tr>
-                                <td
+                                <td className='td-shit'
                                 >
                                     { title }
 
                                 </td>
-                                <td
+                                <td className='td-shit'
                                 >
                                     { artist }
 
                                 </td>
                                 
-                                <td
+                                <td className='td-shit'
                                 >
                                     { Lancamento }
 
                                 </td>
-                                <td
+                                <td className='td-shit'
                                 >
                                     {Formatos }
 
                                 </td>
 
-                                <td
+                                <td className='td-shit'
                                 >
                                     {musics.length }
 
                                 </td>
-                                <td>
+                                <td className='td-shit'>
                                     <Button className='buttons' onClick={ () => manager(_id)} variant="danger">Edite</Button>
                                 </td>
-                                <td>
+                                <td className='td-shit'>
                                     <Button
                                         onClick={(() => {window.open(album_link);})}
                                         variant="danger">Link do Álbum
