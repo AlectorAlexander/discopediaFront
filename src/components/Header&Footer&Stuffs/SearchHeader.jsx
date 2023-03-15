@@ -126,7 +126,6 @@ function SearchHeader() {
 
 
     useEffect(() => {
-        console.log('problem');
         setPromiseReturned(false);
         setPageStore(1);
         if (searchBarr.length !== searchBarrControll && searchParam === 'title') {

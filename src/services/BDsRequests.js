@@ -2,7 +2,7 @@ import axios from 'axios';
 import store from '../redux';
 import { token_not_found } from '../redux/actions';
 
-const baseURL = 'http://localhost:3001/';
+const baseURL = 'https://discopedia-production.up.railway.app/';
 
 const instance = axios.create({
     baseURL,
@@ -118,8 +118,11 @@ export async function UpdateDiscsUser( id, discId ) {
     return response;
 }
 
+
 export async function DeleteDiscsUser(discId) {
-    const { token } = JSON.parse(localStorage.getItem('user'));
+
+    const token = JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')).token:  null;
+    if (!token) return store.dispatch(token_not_found);
     const config = {
         headers: {
             'Content-Type': 'application/json',
@@ -127,17 +130,16 @@ export async function DeleteDiscsUser(discId) {
         }
     };
     
-    const body = {id, diskId: discId};
-    const data = {
-        body
-    };
     const { id } = JSON.parse(localStorage.getItem('user'));
+    const body = {id, diskId: discId};
+
     const response = await instance
-        .delete('user/disc', data, config)
+        .put('user/discDelete', body, config)
         .catch((error) => {
             console.log(error); 
             const {message} = error.response.data;
-            if (message === 'token not found' || message === 'Expired or invalid token' || message === 'Token must be a valid token') {
+            if (message === 'Token not found' || message === 'Expired or invalid token' || message === 'Token must be a valid token') {
+                console.log(message);
                 store.dispatch(token_not_found);
             }
             return error.response;

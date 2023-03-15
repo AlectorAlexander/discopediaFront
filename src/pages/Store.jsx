@@ -9,6 +9,7 @@ import PaginationLove from '../components/Store/pagination';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { token_found } from '../redux/actions';
+import { validateUser } from '../services/BDsRequests';
 
 function Store() {
     const {setPage, disc } = useContext(Context);
@@ -27,14 +28,22 @@ function Store() {
     });
 
     useEffect(() => {
-        if (no_token) {
-            const user = JSON.parse(localStorage.getItem('user'));
-            if (user.token) {
-                dispatch(token_found);
+        const request = async () => {
+            if (no_token) {
+                const user = JSON.parse(localStorage.getItem('user'));
+                if (user.token) {
+                    const discos = await validateUser(user.token);
+                    if (discos && discos.length > 0){
+                        return dispatch(token_found);
+                    } else {
+                        return Logout;
+                    }
+                }
             } else {
                 return Logout;
             }
-        }
+        };
+        request();
     }, [no_token]);
 
 
