@@ -1,5 +1,5 @@
 # Contexto
-Projeto pessoal desenvolvido, em que objetivei a criação de uma enciclopédia de discos. Nessa aplicação, o usuário pode encontrar discos, seja através dos filtros disponíveis, ou pela navegação livre, salva-los em uma estante virtual, acessar o álbum completo através do YoutubeMusic. 
+Projeto pessoal desenvolvido. Objetivei a criação de uma enciclopédia de discos. Nessa aplicação, o usuário pode encontrar discos, seja através dos filtros disponíveis (o usuário pode pesquisar os discos por título, nome do artista, data de lançamento, nome do produtor, nome de músicas, nome da gravadora, características do disco), ou pela navegação livre, salva-los em uma estante virtual, gerenciar os discos na estante (se deseja excluílos, ir para a página do disco, acessar as músicas) e acessar o álbum completo através do YoutubeMusic. 
 
 <img src='discopedia.gif' alt='Projeto-modelo-atual'>
 
