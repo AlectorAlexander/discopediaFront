@@ -31,7 +31,6 @@ function SearchHeader() {
     const onSearch = () => {
         if (!PromiseReturned && searchTimeControll <= 4000) {
             setLoading(true);
-            console.log(searchTimeControll);
             searchTimeControll += 1;
             return onSearch();
         }
@@ -105,7 +104,6 @@ function SearchHeader() {
                 setPromiseReturned(false);
                 setSearchTerm(searchBarr);
             } else {
-                console.log('chamou por alguma razão');
                 setSearchBarr('');
                 setPageStore(1);
             }

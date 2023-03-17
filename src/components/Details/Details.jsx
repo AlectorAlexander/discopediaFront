@@ -23,10 +23,8 @@ function Details() {
     const seeTheDiscs = () => history('/store');
 
     const addItemToBD = async () => {
-        console.log('chama');
         const { id: userId } = JSON.parse(localStorage.getItem('user'));
         const response = await UpdateDiscsUser(userId, id);
-        console.log(response);
         if (response && response.status === 409) {
             const newElementCart = JSON.stringify([Details]);
             localStorage.setItem('discase', newElementCart);
