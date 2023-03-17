@@ -70,7 +70,6 @@ export default function Register() {
                 />
                 <Form.Control
                     placeholder="Email"
-                    data-testid="common_register__input-email"
                     onChange={ handleChangeEmail }
                     type="email"
                     value={ email }
