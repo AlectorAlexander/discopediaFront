@@ -36,7 +36,11 @@ Entre nesse <a href="https://github.com/AlectorAlexander/discopedia/tree/master"
 ``` bash
 npm start
 ``` 
-Após a instalação e inicialização do back-end, entre na pasta `śrc/services` abra o arquivo `BDsRequests.js` e troque o valor da variável `baseURL` que está declarada como 'https://discopedia-production.up.railway.app/', e troque esse valor por `http://localhost:3001/`
+Após a instalação e inicialização do back-end, clone esse repositório com 
+``` bash
+git clone git@github.com:AlectorAlexander/discopediaFront.git
+``` 
+entre na pasta `śrc/services` abra o arquivo `BDsRequests.js` e troque o valor da variável `baseURL` que está declarada como 'https://discopedia-production.up.railway.app/', e troque esse valor por `http://localhost:3001/`
 Agora, abra o terminal na pasta raiz do projeto e ordene:
 
 ``` bash
