@@ -1,5 +1,5 @@
 # Contexto
-A Discopédia é um projeto pessoal meu, em que utilizei quase todos os meus conhecimentos em Desenvolviment Web, todos adquiridos enquanto estudante da escola Trybe.
+A Discopédia é um projeto pessoal meu, em que utilizei quase todos os meus conhecimentos em Desenvolvimento Web, todos adquiridos enquanto estudante da escola Trybe.
 
 A idéia era criar uma enciclopédia de discos em que o usuários pudessem ter uma conta pessoal na aplicação, conhecer discos lançados em território nacional, seja atraveś da navegação livre, ou através dos filtros e barras de pesquisa disponíveis, ter acesso a informações detalhadas desses discos, adiciona-los em uma estante virtual, gerenciar essa estante e acessar o link do álbum no YoutubeMusic.
 
