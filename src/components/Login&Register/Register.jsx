@@ -1,4 +1,4 @@
-import React, { useContext} from 'react';
+import React, { useContext, useEffect} from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -32,6 +32,20 @@ export default function Register() {
     || !validate.validatePassword(password)
     || !validate.validateName(name)
     );
+
+    useEffect(() => {
+        if (validate.validateEmail(email)
+        && validate.validatePassword(password)
+        && validate.validateName(name)) {
+            setErrHomeMessage(null);
+        } else if (!validate.validateEmail(email)) {
+            setErrHomeMessage('Email inválido');
+        } else if (!validate.validatePassword(password)) {
+            setErrHomeMessage('Senha inválida');
+        } else if (!validate.validateName(name)) {
+            setErrHomeMessage('Nome inválido');
+        }
+    }, [name, email, password]);
 
     function handleToRegister() {
         setErrHomeMessage(null);
@@ -99,13 +113,14 @@ export default function Register() {
                     >
           LOGIN
                     </Button>
-                    {errHomeMessage && (
-                        <span
-                        >
-                            {errHomeMessage}
-                        </span>
-                    )}
+                   
                 </div>
+                {errHomeMessage && (
+                    <span className='text-warning text-center mt-3 text-bold'
+                    >
+                        {errHomeMessage}
+                    </span>
+                )}
             </form>
         </div>
     );
