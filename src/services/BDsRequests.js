@@ -2,7 +2,7 @@ import axios from 'axios';
 import store from '../redux';
 import { token_not_found } from '../redux/actions';
 
-const baseURL = 'https://discopedia-production.up.railway.app/';
+const baseURL = 'https://discopedia-back.onrender.com/';
 
 const instance = axios.create({
     baseURL,
