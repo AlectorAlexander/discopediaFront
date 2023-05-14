@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { Suspense, useContext, useEffect } from 'react';
 import Footer from '../components/Header&Footer&Stuffs/Footer';
 import Header from '../components/Header&Footer&Stuffs/Header';
 import Discs from '../components/Store/Discs';
@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { token_found } from '../redux/actions';
 import { validateUser } from '../services/BDsRequests';
+import Loading from '../components/loading';
 
 function Store() {
     const {setPage, disc } = useContext(Context);
@@ -53,12 +54,14 @@ function Store() {
 
     return (
         <div className="psychodelic-background Store">
-            <Header />
-            {disc && <SearchHeader />}
-            <p>{warning !== '' && <h5>{warning}</h5>}</p>
-            {disc && <Discs />}
-            <PaginationLove />
-            <Footer />
+            <Suspense fallback={<Loading />}>
+                <Header />
+                {disc && <SearchHeader />}
+                <p>{warning !== '' && <h5>{warning}</h5>}</p>
+                {disc && <Discs />}
+                <PaginationLove />
+                <Footer />
+            </Suspense>
         </div>
     );
 }

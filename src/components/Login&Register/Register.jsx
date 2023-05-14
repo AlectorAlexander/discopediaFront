@@ -78,7 +78,7 @@ export default function Register() {
     }
 
     return (
-        <div className='d-flex align-items-center  justify-content-center mt-5'>
+        <div className='d-flex align-items-center  justify-content-center mt-1'>
             {loading ? (<Loading/>) : ( 
                 <form className='form-login'>
                     <Form.Control
