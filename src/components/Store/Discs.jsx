@@ -25,7 +25,7 @@ function Discs() {
     };
 
     return (
-        <div className='d-flex justify-content-center flex-column'>
+        <div className='d-flex justify-content-center flex-column m-5'>
             <div className="disc d-flex flex-wrap justify-content-center container-fluid">
                 {Loading ? <p>carregando...</p> : data[pageStore - 1].map((item, i) => {
                     return (

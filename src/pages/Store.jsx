@@ -59,9 +59,11 @@ function Store() {
                 {disc && <SearchHeader />}
                 <p>{warning !== '' && <h5>{warning}</h5>}</p>
                 {disc && <Discs />}
-                <PaginationLove />
-                <Footer />
+                <div className=" pagination">
+                    <PaginationLove />
+                </div>
             </Suspense>
+            <Footer />
         </div>
     );
 }
