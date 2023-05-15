@@ -86,7 +86,7 @@ function Header() {
     };
 
     return (
-        <div className="Header">
+        <div>
             <CarouselComponent /> 
             <Navbar
                 className=" brazilian_colors"
@@ -95,11 +95,7 @@ function Header() {
             >
                 <Navbar.Toggle aria-controls="basic-navbar-nav mx-5" />
                 <Navbar.Collapse className="justify-content-end mx-5">
-                    <Nav>
-
-                        {renderTheRightHeader}
-                    </Nav>
-
+                    {renderTheRightHeader}
                 </Navbar.Collapse>
                 <Button variant='danger' className='button-logout brazilian_colors mx-4' onClick={ Logout }>Logout</Button>
 
