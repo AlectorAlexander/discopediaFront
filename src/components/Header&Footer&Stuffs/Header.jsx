@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-filename-extension */
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Container, Nav, Navbar } from 'react-bootstrap';
+import { Button, Nav, Navbar } from 'react-bootstrap';
 import { useNavigate } from 'react-router';
 import Context from '../../context/Context';
 import { validateUser } from '../../services/BDsRequests';
@@ -61,6 +61,9 @@ function Header() {
 
     const renderTheRightHeader = !admin ? (
         <Nav className="me-auto">
+            <Nav.Link style={{ cursor: 'pointer' }} onClick={() => history('/store')}>
+                        Home
+            </Nav.Link>
             <Nav.Link onClick={Discase}>Minha Estante</Nav.Link>
         </Nav>
     ) : (
@@ -88,13 +91,18 @@ function Header() {
             <Navbar
                 className=" brazilian_colors"
                 variant="dark"
-                style={{ height: '6vw' }}
+                expand="lg"
             >
-                <Container>
-                    <Navbar.Brand style={{ cursor: 'pointer' }} onClick={() => history('/store')}>Home</Navbar.Brand>
-                    {renderTheRightHeader}
-                    <Button variant='danger' className='button-logout brazilian_colors' onClick={ Logout }>Logout</Button>
-                </Container>
+                <Navbar.Toggle aria-controls="basic-navbar-nav mx-5" />
+                <Navbar.Collapse className="justify-content-end mx-5">
+                    <Nav>
+
+                        {renderTheRightHeader}
+                    </Nav>
+
+                </Navbar.Collapse>
+                <Button variant='danger' className='button-logout brazilian_colors mx-4' onClick={ Logout }>Logout</Button>
+
             </Navbar>
         </div>
     );
