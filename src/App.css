@@ -12,7 +12,10 @@
 .footer {
   margin-bottom: 0;
   margin-top: 100%;
+  position: absolute;
   bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 .link {
@@ -78,6 +81,7 @@ body {
 .App {
   text-align: center;
   width: 100%;
+  position: relative;
 }
 
 ::-webkit-scrollbar {
