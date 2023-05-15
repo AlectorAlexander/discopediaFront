@@ -79,3 +79,13 @@ body {
   text-align: center;
   width: 100%;
 }
+
+::-webkit-scrollbar {
+  width: 8px;
+  background-color: #f5f5f500;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #000000;
+  border-radius: 10px;
+}
