@@ -13,7 +13,8 @@ import { validateUser } from '../services/BDsRequests';
 import Loading from '../components/loading';
 
 function Store() {
-    const {setPage, disc } = useContext(Context);
+    const {setPage, disc, ImagesHeader } = useContext(Context);
+    const [loading, setLoading] = React.useState(true);
 
     const dispatch = useDispatch();
 
@@ -30,6 +31,7 @@ function Store() {
 
     useEffect(() => {
         const request = async () => {
+            setLoading(true);
             if (no_token) {
                 const user = JSON.parse(localStorage.getItem('user'));
                 if (user.token) {
@@ -47,6 +49,12 @@ function Store() {
         request();
     }, [no_token]);
 
+    useEffect(() => {
+        if (disc && ImagesHeader && disc.length > 0 && ImagesHeader.length > 0) {
+            setLoading(false);
+        }
+    }, [disc, ImagesHeader]);
+
 
     const warning = useSelector(state => {
         return state.userReducer.warning;
@@ -54,15 +62,17 @@ function Store() {
 
     return (
         <div className="psychodelic-background Store">
-            <Suspense fallback={<Loading />}>
-                <Header />
+
+            <Header />
+            {!loading ? <><Suspense fallback={<Loading />}>
                 {disc && <SearchHeader />}
                 <p>{warning !== '' && <h5>{warning}</h5>}</p>
                 {disc && <Discs />}
-                <div className=" pagination">
-                    <PaginationLove />
-                </div>
             </Suspense>
+            </> : <Loading />}
+            <div className=" pagination">
+                <PaginationLove />
+            </div>
             <Footer />
         </div>
     );

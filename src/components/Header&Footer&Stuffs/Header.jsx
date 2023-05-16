@@ -11,7 +11,7 @@ import CarouselComponent from './carrossel';
 function Header() {
     const [admin, setAdmin] = useState(false);
     const history = useNavigate();
-    const { setPage,   setImagesHeader,  setPagesLenght,  setLabel } = useContext(Context);
+    const { setPage,   setImagesHeader, ImagesHeader,  setPagesLenght,  setLabel } = useContext(Context);
 
     const request = async () => {
         const { data } = await getDiscs();
@@ -87,19 +87,19 @@ function Header() {
 
     return (
         <div>
-            <CarouselComponent /> 
-            <Navbar
-                className=" brazilian_colors"
-                variant="dark"
-                expand="lg"
-            >
-                <Navbar.Toggle aria-controls="basic-navbar-nav mx-5" />
-                <Navbar.Collapse className="justify-content-end mx-5">
-                    {renderTheRightHeader}
-                </Navbar.Collapse>
-                <Button variant='danger' className='button-logout brazilian_colors mx-4' onClick={ Logout }>Logout</Button>
+            {ImagesHeader && ImagesHeader.length > 0 ?(
+                <><CarouselComponent /><Navbar
+                    className=" brazilian_colors"
+                    variant="dark"
+                    expand="lg"
+                >
+                    <Navbar.Toggle aria-controls="basic-navbar-nav mx-5" />
+                    <Navbar.Collapse className="justify-content-end mx-5">
+                        {renderTheRightHeader}
+                    </Navbar.Collapse>
+                    <Button variant='danger' className='button-logout brazilian_colors mx-4' onClick={Logout}>Logout</Button>
 
-            </Navbar>
+                </Navbar></>) : ''}
         </div>
     );
 }

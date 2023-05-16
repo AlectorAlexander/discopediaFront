@@ -8,6 +8,8 @@ import { useNavigate } from 'react-router';
 import Context from '../context/Context';
 import { token_found } from '../redux/actions';
 import { validateUser } from '../services/BDsRequests';
+import '../styles/DiscsDetails.css';
+
 
 function DiscDetails() {
     const {setPage} = useContext(Context);
@@ -47,6 +49,7 @@ function DiscDetails() {
         <div className="psychodelic-background">
             <Header />
             <Details />
+            <div className='empty-div'></div>
             <Footer />
         </div>
     );

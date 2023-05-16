@@ -23,13 +23,21 @@
 }
 
 .button-logout {
-  max-width: 18%;
-  max-height: 6vw;
   font-size: 12px;
   font-weight: bolder;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media screen and (max-width: 475px) {
+  .button-logout {
+    font-size: 14px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 .search-component {
@@ -240,7 +248,6 @@ max-width: 99%;
   }
   
   .login {
-      position: absolute;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -248,11 +255,7 @@ max-width: 99%;
       min-height: 100%;
       font-family: 'Montserrat', sans-serif;
       padding: 20px 0 70px;
-      margin: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      top: 0;
+      height: 100vh;
     }
   
     .card-login {

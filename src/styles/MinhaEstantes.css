@@ -1,6 +1,19 @@
+
+.MinhaEstante {
+   width: 100%;
+   min-height: 100vh;
+   margin: 0;
+   padding: 0;
+}
+
+.empty-space {
+   height: 40px;
+}
+
 @media (max-width: 800px) { 
  .MinhaEstante {
     width: 100%;
+    min-height: 100vh;
     margin: 0;
     padding: 0;
  }

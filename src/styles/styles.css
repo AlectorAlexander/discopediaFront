@@ -63,6 +63,16 @@ li .nav-link:hover {
   background-image: linear-gradient(to right, #222341, #58388972, #4d3c8c);
 }
 
+@media screen and (max-width: 374px) {
+  .buttons  {
+    padding: 0;
+    margin: 0;
+    height: 40px;
+    width: 130px;
+    font-weight: 900;
+  }
+}
+
 .buttons:hover {
   font-weight: 900;
   background-color: #222341;
@@ -85,7 +95,13 @@ li .nav-link:hover {
   border-radius: 40px;
 }
 
-
+@media screen and (max-width: 424px) {
+  .cellImage {
+    width: 145px;
+    height: 145px;
+    border-radius: 24px;
+  }
+}
 
 .list1 {
   border-radius: 40px;
