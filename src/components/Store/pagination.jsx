@@ -19,13 +19,16 @@ function PaginationLove () {
         const alreadyClick = data[pageStore - 1] !== undefined;
         if (!alreadyClick) {
             setLoading(true);
-            const { data } = await getDiscsForPaginations(pageStore, 9);
-            setActualPage(data);
-            setPagesClicked((prev) => prev.concat(pageStore));
-            if (!disc || disc.length < 1) {
-                return setDisc(data);
+            const response = await getDiscsForPaginations(pageStore, 9);
+            if (response) {
+                const { data } = response;
+                setActualPage(data);
+                setPagesClicked((prev) => prev.concat(pageStore));
+                if (!disc || disc.length < 1) {
+                    return setDisc(data);
+                }
+                return setDisc((prev) => prev.concat(data));
             }
-            return setDisc((prev) => prev.concat(data));
         }
         return setLoading(false);
     };

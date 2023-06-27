@@ -13,33 +13,44 @@ function Header() {
     const history = useNavigate();
     const { setPage,   setImagesHeader, ImagesHeader,  setPagesLenght,  setLabel } = useContext(Context);
 
-    const request = async () => {
-        const { data } = await getDiscs();
-        setImagesHeader([]);
-        let randomNumber = Math.floor(Math.random() * 10) + 1;
-        data.map(({ url_img, details }, i) => {
-            const { Gravadora } = details;
-            setLabel((prevLabel) => prevLabel.concat(Gravadora));
-            if (randomNumber === i) {
-                setImagesHeader((prevImages) => prevImages.concat(url_img));
-                randomNumber += 12;
-            }
+    const Logout = () => {
+        setPage('login');
+        localStorage.clear();
+        history('/');
+    };
 
-        });
+    const request = async () => {
+        const response = await getDiscs();
+        if (response) {
+            const { data } = response;
+            setImagesHeader([]);
+            let randomNumber = Math.floor(Math.random() * 10) + 1;
+            data.map(({ url_img, details }, i) => {
+                const { Gravadora } = details;
+                setLabel((prevLabel) => prevLabel.concat(Gravadora));
+                if (randomNumber === i) {
+                    setImagesHeader((prevImages) => prevImages.concat(url_img));
+                    randomNumber += 12;
+                }
+
+            });
         
-        setLabel((prevLabel) => {
-            for (let i = 0; i < prevLabel.length; i++) {
-                let organizedLabels = prevLabel[i].split('/');
-                prevLabel.splice(i, 1, ...organizedLabels);
-            }
+            setLabel((prevLabel) => {
+                for (let i = 0; i < prevLabel.length; i++) {
+                    let organizedLabels = prevLabel[i].split('/');
+                    prevLabel.splice(i, 1, ...organizedLabels);
+                }
             
-            return prevLabel.filter((val, index) => prevLabel.indexOf(val) === index)
-                .filter((el) => el !== '').sort();
-        });
-        if (data.length % 9 !== 0) {
-            setPagesLenght(parseInt(data.length / 9) + 1);
+                return prevLabel.filter((val, index) => prevLabel.indexOf(val) === index)
+                    .filter((el) => el !== '').sort();
+            });
+            if (data.length % 9 !== 0) {
+                setPagesLenght(parseInt(data.length / 9) + 1);
+            } else {
+                setPagesLenght(data.length / 9);
+            }
         } else {
-            setPagesLenght(data.length / 9);
+            Logout();
         }
     };
 
@@ -48,12 +59,6 @@ function Header() {
     }, []);
 
   
-
-    const Logout = () => {
-        setPage('login');
-        localStorage.clear();
-        history('/');
-    };
 
     const Discase = () => {
         history('/discase');

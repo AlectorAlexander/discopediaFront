@@ -67,21 +67,23 @@ export async function createUser( nome, email, senha ) {
 }
 
 export async function validateUser() {
-    const { token } = JSON.parse(localStorage.getItem('user'));
-    const response = await instance
-        .get('/login/validate', { headers: { 'Content-Type': 'application/json', Authorization: token } })
-        .catch((error) => {
-            console.log(error);
-            return error.response;
-        });
+    if (localStorage.getItem('user')){
+        const { token } = JSON.parse(localStorage.getItem('user'));
+        const response = await instance
+            .get('/login/validate', { headers: { 'Content-Type': 'application/json', Authorization: token } })
+            .catch((error) => {
+                console.log(error);
+                return error.response;
+            });
 
 
-    if (response.data.discos) {
-        const { data } = response;
-        const { discos } = data;
-        return discos;
+        if (response.data.discos) {
+            const { data } = response;
+            const { discos } = data;
+            return discos;
+        }
+        return response;
     }
-    return response;
 }
 
 
@@ -202,41 +204,46 @@ export async function CreateDisc(disco ) {
  
 
 export async function getDiscs() {
-    const { token } = JSON.parse(localStorage.getItem('user'));
-    const response = await instance
-        .get('disks', { headers: { 'Content-Type': 'application/json', Authorization: token } })
-        .catch((error) => {
-            console.log(error);
-            const {message} = error.response.data;
-            if (message === 'token not found' || message === 'Expired or invalid token' || message === 'Token must be a valid token') {
-                store.dispatch(token_not_found);
-            }
-            return error.response.error;
-        });
-    return response;
+    if (localStorage.getItem('user')) {
+        const { token } = JSON.parse(localStorage.getItem('user'));
+        const response = await instance
+            .get('disks', { headers: { 'Content-Type': 'application/json', Authorization: token } })
+            .catch((error) => {
+                console.log(error);
+                const {message} = error.response.data;
+                if (message === 'token not found' || message === 'Expired or invalid token' || message === 'Token must be a valid token') {
+                    store.dispatch(token_not_found);
+                }
+                return error.response.error;
+            });
+        return response;
+    } 
 }
 
 export async function getDiscsForPaginations(page, limit) {
-    
     const data = { page, limit };
-    const { token } = JSON.parse(localStorage.getItem('user'));
-    const config = {
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: token
+    if (localStorage.getItem('user')) {
+        {
+            const { token } = JSON.parse(localStorage.getItem('user'));
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: token
+                }
+            };
+            const response = await instance
+                .post('/disks/pagination', data, config)
+                .catch((error) => {
+                    console.log(error);
+                    const {message} = error.response.data;
+                    if (message === 'token not found' || message === 'Expired or invalid token' || message === 'Token must be a valid token') {
+                        store.dispatch(token_not_found);
+                    }
+                    return error.response;
+                });
+            return response;
         }
-    };
-    const response = await instance
-        .post('/disks/pagination', data, config)
-        .catch((error) => {
-            console.log(error);
-            const {message} = error.response.data;
-            if (message === 'token not found' || message === 'Expired or invalid token' || message === 'Token must be a valid token') {
-                store.dispatch(token_not_found);
-            }
-            return error.response;
-        });
-    return response;
+    }
 }
 
 export async function getDiscsBySearch(params) {

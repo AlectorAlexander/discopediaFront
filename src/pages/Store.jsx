@@ -34,7 +34,7 @@ function Store() {
             setLoading(true);
             if (no_token) {
                 const user = JSON.parse(localStorage.getItem('user'));
-                if (user.token) {
+                if (user && user.token) {
                     const discos = await validateUser(user.token);
                     if (discos && discos.length > 0){
                         return dispatch(token_found);
